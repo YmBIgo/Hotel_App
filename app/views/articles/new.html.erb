@@ -1,0 +1,18 @@
+<div class="card" style="padding:20px;">
+	<h3>記事作成</h3>
+	<%= form_for @article do |f| %>
+		<p>タイトル
+		<%= f.text_field :title, :class => "form-control", :style => "width:70%" %>
+		</p>
+		<p>著者
+		<%= f.text_field :author, :class => "form-control", :style => "width:70%" %>
+		</p>
+		<p>記事分類
+		<%= f.select :article_type, [['オプション', 0], ['記事', 1]], {}, {:class => "form-control", :style => "width:70%"} %>
+		</p>
+		<p>HTML内容
+		<%= f.text_area :content, :class => "form-control", :style => "width:70%;height:240px;" %>
+		</p>
+		<%= f.submit "作成する", :class => "btn btn-sm btn-primary" %>
+	<% end %>
+</div>

@@ -1,0 +1,59 @@
+<div class="card" style="padding:20px;">
+	<h3>
+	<strong><%= @plan.title %></strong>
+	<% if user_signed_in? %>
+		　<a href="/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">編集する</a>　<a href="/plans/new" class="btn btn-sm btn-info">新規作成する</a>
+	<% end %>
+	</h3>
+	<small><%= @plan.people_num %>人　<%= @plan.price %>円</small>
+	<p>
+		<%= @plan.explanation %>
+	</p>
+	<hr>
+	<h4><strong>予約する</strong></h4>
+	<%= form_tag("/reservation/confirm", method: "get") do |f| %>
+		<div class="row">
+			<div class="col-6">
+				<p>
+				チェックイン日時　　
+				<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
+				</p>
+			</div>
+			<div class="col-6">
+				<p>
+				チェックアウト日時　
+				<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
+				</p>
+			</div>
+			<div class="col-6">
+				<p>
+				１室あたりの人数　　
+				<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
+				</p>
+			</div>
+			<%= hidden_field_tag :plan_id, @plan.id %>
+		</div>
+		<%= submit_tag "予約する", :class => "btn btn-sm btn-primary" %>
+	<% end %>
+</div>
+<br>
+<h5><strong>空室カレンダー</strong></h5>
+<%= month_calendar events: @reservations do |date, reservations| %>
+	<%= date %>
+	<div style="font-size:11px;">
+	<% if reservations.length == 0 %>
+		<%= @plan.room_num %>件の空室があります
+	<% else %>
+		<span style="color:#ff7f50;">
+		<%= @plan.room_num - reservations.length %>件の空室があります
+		</span>
+	<% end %>
+	<% if user_signed_in? %>
+		<% f_remainroom = Remainroom.find_by(:room_date => date) %>
+		<% if f_remainroom != nil %>
+			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info">空室状況見る</a>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>
+<br>

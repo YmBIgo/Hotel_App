@@ -1,0 +1,50 @@
+<div class="">
+	<h3><%= @remainroom.room_date %>の予約</h3>
+	<a href="/remainrooms/<%= @remainroom.id %>/edit" class="btn btn-sm btn-success">編集する</a>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<h5>予約部屋状況</h5>
+			<table class="table">
+			<% @plans_remainrooms.each do |p_room_k, p_room_c| %>
+				<% plan = Plan.find(p_room_k) %>
+				<tr>
+					<td><a href="/plans/<%= plan.id %>"><%= plan.title %></a></td>
+					<td><%= p_room_c %></td>
+				</tr>
+			<% end %>
+			</table>
+		</div>
+		<div class="col-6">
+			<h5>値段状況　<a href="/remainrooms/<%= @remainroom.id %>/edit" class="btn btn-sm btn-success">編集する</a></h5>
+			<table class="table">
+				<% @price_remainrooms.each do |pr_room_k, pr_room_c| %>
+					<% plan = Plan.find(pr_room_k) %>
+					<tr>
+						<td>
+							<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
+						</td>
+						<td>
+							<%= pr_room_c %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<br>
+	<div class="">
+		<h3>今日の予約一覧</h3>
+		<div class="row">
+		<% @reservations.each do |res| %>
+			<div class="col-6">
+				<div class="card" style="margin-bottom:10px;padding:10px;">
+					<% plan = Plan.find(res.plan_id) %>
+					<h4><a href="/reservations/<%= res.id %>?reservation_hash=<%= res.url_hash %>"><%= plan.title %></a></h4>
+					<p><%= res.last_name %> <%= res.first_name %>　<%= res.email %></p>
+					<p><%= plan.price %>円 <%= plan.people_num %>人部屋</p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

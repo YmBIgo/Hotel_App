@@ -1,0 +1,12 @@
+<div class="">
+	<h4><%= @article.title %></h4>
+	<% if user_signed_in? %>
+		<a href="/articles/<%= @article.id %>/edit" class="btn btn-sm btn-success" style="margin-bottom:11px">編集する</a>
+		<br>
+	<% end %>
+	<small><%= @article.author %>さん</small>
+	<hr>
+	<p>
+		<%= @article.content.html_safe %>
+	</p>
+</div>

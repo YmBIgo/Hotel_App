@@ -1,0 +1,14 @@
+<br>
+<h5><strong>空室カレンダー</strong></h5>
+<%= month_calendar events: @reservations do |date, reservations| %>
+	<%= date %>
+	<% if user_signed_in? %>
+		<% f_remainroom = Remainroom.find_by(:room_date => date) %>
+		<% if f_remainroom != nil %>
+			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info">空室状況見る</a>
+		<% else %>
+			<a href="/remainrooms/new?room_date=<%= date %>" class="btn btn-success btn-sm">作成する</a>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

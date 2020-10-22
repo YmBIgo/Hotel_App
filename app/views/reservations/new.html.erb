@@ -1,0 +1,26 @@
+<div class="">
+	<h1 class="text-center">部屋確認</h1>
+	<hr>
+	<div class="row">
+		<% @plans.each do |plan| %>
+		<div class="col-6">
+			<div class="card" style="padding:15px;margin-bottom:20px;">
+				<h4><%= plan.title %></h4>
+				<hr>
+				<%= form_tag("/reservation/confirm", method: "get") do |f| %>
+				<h6>
+					<%= plan.explanation %>　<small>
+					<%= @prices_hash[plan.id] %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数
+					</small>
+				</h6>
+				<%= hidden_field_tag :plan_id, plan.id %>
+				<%= hidden_field_tag :start_date, @start_date %>
+				<%= hidden_field_tag :end_date, @end_date %>
+				<%= hidden_field_tag :people_num, @people_num %>
+				<%= submit_tag "予約する", :class => "btn btn-sm btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

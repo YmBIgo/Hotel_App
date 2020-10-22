@@ -1,0 +1,32 @@
+<div class="" style="margin-top:24px">
+	<h3>ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
+	<br>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card" style="padding:20px;">
+				<h4><%= @plan.title %></h4>
+				<hr>
+				<p>1泊<%= @plan.price %>円　<%= @plan.people_num %>人部屋</p>
+				<p><%= @plan.explanation %></p>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card" style="padding:20px;">
+				<h4>予約詳細</h4>
+				<hr>
+				<p><%= @reservation.last_name %> <%= @reservation.first_name %>さん (<%= @reservation.email %>)</p>
+				<p><%= @reservation.price %>円　<%= (@reservation.end_date - @reservation.start_date+1).to_i %>泊</p>
+				<p><%= @reservation.start_date %>～<%= @reservation.end_date %>　(<%= @reservation.people_num %>人)</p>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="">
+		<h4>ご来泊になる前の注意事項</h4>
+		<br>
+		<ul>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>

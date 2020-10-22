@@ -1,0 +1,15 @@
+<div class="">
+	<h3>記事一覧</h3>
+	<hr>
+	<div class="row">
+	<% @articles.each do |article| %>
+		<div class="col-4">
+			<div class="card" style="padding:10px;margin-bottom:10px;">
+				<h4><%= article.title %></h4>
+				<p><%= strip_tags(article.content)[0..15] %></p>
+				<a href="/articles/<%= article.id %>" class="btn btn-sm btn-info">詳細を見る</a>
+			</div>
+		</div>
+	<% end %>
+	<br><br>
+</div>
