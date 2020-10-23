@@ -1,7 +1,7 @@
 require "digest/md5"
 class ReservationsController < ApplicationController
 
-	before_action :authanticate_user!, :only => [:index]
+	before_action :authenticate_user!, :only => [:index]
 
 	def show
 		@reservation = Reservation.find(params[:id])

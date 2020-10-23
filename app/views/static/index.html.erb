@@ -7,11 +7,27 @@
 		</h3>
 	</div>
 </div>
-<div class="checkin-form-section" style="background-color:#4682B4;color:white;padding:20px;border-radius:10px;">
-	<h1 class="text-center">宿泊予約</h1>
-	<br>
-	<div class="row">
+<br>
+<div class="row">
+	<div class="col-4">
+		<h1 class="">さあ！富士山の旅に出よう！</h1>
+		<br>
+		<p>
+		富士山・河口湖など観光地に近い立地。
+		<br>
+		旅先の疲れを癒してくれる宿泊施設。
+		<br>
+		観光案内に慣れているスタッフ。
+		<br>
+		様々な美味しい料理店。
+		<br><br>
+		<strong>観光にとどまらない旅先の思い出を提供します。</strong>
+		</p>
+	</div>
 	<div class="col-8">
+	<div class="checkin-form-section" style="background-color:#4682B4;color:white;padding:20px;border-radius:10px;">
+	<h1 class="text-center">宿泊予約</h1>
+	<hr>
 		<%= form_tag("reservations/new", method: "get") do  %>
 			<p>
 			チェックイン日時　　
@@ -32,26 +48,19 @@
 			</p>
 		<% end %>
 	</div>
-	<div class="col-4">
-		<div class="card" style="padding:20px;">
-			<p style="color:black;">
-				電話番号<br>03-0000-0000
-			</p>
-		</div>
 	</div>
 </div>
 </div>
-<h1 class="text-center" style="margin:45px 0;">プラン一覧</h1>
-<div style="background-image:url('/assets/15895080_1288033254569028_5250487018125880334_n.jpg');padding:20px;background-size: cover;opacity:.95">
-	<% if user_signed_in? %>
-		<a href="/plans/new" class="btn btn-sm btn-success text-center">プラン作成</a>
-		<br>
-	<% end %>
+<!-- background-image:url('/assets/15895080_1288033254569028_5250487018125880334_n.jpg'); -->
+<br>
+<div style="background-color:rgba(220, 220, 220, .7);padding:20px;background-size: cover;opacity:.95">
+	<h1 class="text-center" style="margin:15px 0;">プラン一覧</h1>
 	<br>
+	<% if user_signed_in? %>
+		<!--<a href="/plans/new" class="btn btn-sm btn-success text-center" style="margin-bottom:10px;">プラン作成</a>-->
+	<% end %>
 	<div class="row">
-		<div class="col-2">
-		</div>
-		<div class="col-8">	
+		<div class="col-12">	
 			<div style="color:#eee;background-color:rgba(20, 20, 20, .95);border-radius:5px;height:190px;padding:20px;margin-bottom:35px;">
 				<h4 class="text-center">最上級の宿泊を提供します</h4>
 				<hr style="border-color:#999">
@@ -61,8 +70,6 @@
 				<a href="/plans" class="btn btn-primary btn-sm" style="margin-top:10px;">もっと見る</a>
 				</p>
 			</div>
-		</div>
-		<div class="col-2">
 		</div>
 		<% @plans.each do |plan| %>
 			<div class="col-6">
@@ -87,12 +94,13 @@
 	</div>
 </div>
 <h1 class="text-center" style="margin:45px 0;">オプション一覧</h1>
-<div style="background-image:url('/assets/IMG_5069.JPG');background-size: cover;padding:20px;opacity:.9" class="row">
+<% if user_signed_in? %>
+	<a href="/articles/new" class="btn btn-sm btn-warning text-center" style="margin-bottom:10px;">オプション作成</a>
+	<br>
+<% end %>
+<!-- background-image:url('/assets/IMG_5069.JPG'); -->
+<div style="background-image:url('/assets/IMG_5069.JPG'); ;background-size: cover;padding:20px;opacity:.9" class="row">
 <!--<div class="row">-->
-	<% if user_signed_in? %>
-		<a href="/articles/new" class="btn btn-sm btn-warning text-center">オプション作成</a>
-		<br>
-	<% end %>
 	<div class="col-4" style="padding:20px;max-height:300px;color:#222;background-color:rgba(240, 240, 240, .82);border-radius:5px;">
 		<h4>私たちの提供する価値</h4>
 		<br>
@@ -128,18 +136,19 @@
 	<br>
 <% end %>
 <br>
-<div class="row">
+<div class="table table-responsive">
+	<table class="table table-bordered table-striped">
 	<% @articles.each do |article| %>
-		<div class="col-sm-4 col-6">
+		<td>
 			<div class="" style="padding:20px;margin-bottom:10px;">
-				<img src="/assets/IMG_0493.JPG" style="width:90%;margin-left:5%;">
+				<img src="/assets/IMG_0493.JPG" style="width:150px;margin-left:5%;">
 				<h5 style="margin-top:7px;"><%= article.title %></h5>
 				<p><%= strip_tags(article.content)[0..15] %>...</p>
 				<a href="/articles/<%= article.id %>" class="btn btn-sm btn-info">詳細見る</a>
 			</div>
-		</div>
+		</td>
 	<% end %>
-	</div>
+	</table>
 	<br>
 	<a href="/articles" class="btn btn-sm btn-primary" style="margin-left:15px">詳細を見る</a>
-<br>
+<br><br>

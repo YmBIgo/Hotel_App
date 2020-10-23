@@ -21,6 +21,10 @@ Things you may want to cover:
 
 * Deployment instructions
 
+	For AWS Production Mode...
+	 1 : Set ENV[EMAIL_PASS] & ENV[GMAIL_PASS] in .bash_profile file
+	 2 : gem install rubyracer & sqlite3(<~ 1.3.6)
+
 * ...
 
 

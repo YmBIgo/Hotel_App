@@ -1,6 +1,30 @@
-<div class="">
+<div style="padding:30px 30px 10px 30px;">
+	<div class="card" style="padding:20px;">
+		<h4>ご予約の流れ</h4>
+		<hr>
+		<div class="row">
+			<div class="col-4">
+				<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+					<h5>1 : 予約プラン確認</h5>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card" style="padding:10px;margin:5px 10px;">
+					<h5 style="color:rgba(30, 30, 30, .3)">2 : ご予約内容の入力</h5>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card" style="padding:10px;margin:5px 10px;">
+					<h5 style="color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div style="padding:30px;background-color:rgba(240, 255, 255, .4);">
 	<h1 class="text-center">部屋確認</h1>
-	<hr>
+	<br>
 	<div class="row">
 		<% @plans.each do |plan| %>
 		<div class="col-6">
@@ -23,4 +47,38 @@
 		</div>
 		<% end %>
 	</div>
+</div>
+<div class="" style="padding:30px;">
+	<div class="checkin-form-section" style="background-color:rgba(210, 210, 210, .95);color:black;padding:20px;border-radius:10px;">
+	<h1 class="text-center">宿泊予約</h1>
+	<hr>
+		<%= form_tag("/reservations/new", method: "get") do  %>
+			<div class="row">
+				<div class="col-6">
+				<p>
+				チェックイン日時　　
+				<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
+				</p>
+				</div>
+				<div class="col-6">
+				<p>
+				チェックアウト日時　
+				<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
+				</p>
+				</div>
+				<div class="col-6">
+				<p>
+				１室あたりの人数　　
+				<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
+				<!--室数　-->
+				<% number_field_tag :room_num, nil, :class => "form-control", :style => "width:75px;display:inline-block;" %>
+				</p>
+				</div>
+			</div>
+			<p class="text-center">
+			<%= submit_tag("検索する", :class => "btn btn-sm btn-default", :style => "width:30%;") %>
+			</p>
+		<% end %>
+	</div>
+	<br>
 </div>
