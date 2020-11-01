@@ -1,0 +1,44 @@
+<div style="background-color:rgba(30, 30, 30, .7);padding:30px 50px;color:rgba(240, 240, 240, .7)">
+	<div class="row">
+		<div class="col-3">
+			<h4>トップページ</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/">トップページ</a>
+			</p>
+		</div>
+		<div class="col-3">
+			<h4>予約</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/plans">プラン一覧</a>
+				<br>
+				<% Plan.all.each do |pl| %>
+					<a style="color:rgba(240, 240, 240, .5)" href="/plans/<%= pl.id %>"><%= pl.title %></a><br>
+				<% end %>
+			</p>
+		</div>
+		<div class="col-3">
+			<h4>アクティビティ</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles?is_option=0">アクティビティ一覧</a>
+				<br>
+			<% Article.where(:article_type => 0).each do |ar| %>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles/<%= ar.id %>"><%= ar.title %></a><br>
+			<% end %>
+			</p>
+		</div>
+		<div class="col-3">
+			<h4>観光地</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles?is_option=1">観光地一覧</a>
+				<br>
+			<% Article.where(:article_type => 1).each do |ar| %>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles/<%= ar.id %>"><%= ar.title %></a><br>
+			<% end %>
+			</p>
+		</div>
+	</div>
+</div>

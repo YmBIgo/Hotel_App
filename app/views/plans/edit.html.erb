@@ -13,6 +13,12 @@
 		<p>説明
 		<%= f.text_area :explanation, :class => "form-control", :style => "width:60%;height:80px;" %>
 		</p>
+		<% n = 0; %>
+		<% tag_array = Tag.all.map { |t| n+=1; "#{n}:#{t.name}" } %>
+		<p>タグ<br><small><strong><%= tag_array.to_s %></strong> をコンマ区切りで入力して下さい。</small>
+		<br>
+		<%= f.text_field :tag_ids, :class => "form-control", :style => "width:60%", :placeholder => "複数ある場合は、',' で区切ってください　例 1, 2" %>
+		</p>
 		<p>HTML説明
 		<%= f.text_area :html_content, :class => "form-control", :style => "width:60%;height:150px;" %>
 		</p>

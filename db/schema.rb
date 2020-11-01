@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201021162804) do
+ActiveRecord::Schema.define(version: 20201031160724) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",        default: "", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20201021162804) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "article_type", default: 0,  null: false
+    t.string   "tag_ids",      default: "", null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20201021162804) do
     t.date     "end_date"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "tag_ids",      default: "", null: false
   end
 
   create_table "remainrooms", force: :cascade do |t|
@@ -61,6 +63,14 @@ ActiveRecord::Schema.define(version: 20201021162804) do
     t.string   "url_hash"
     t.boolean  "has_paid",     default: false, null: false
     t.integer  "price",        default: 0,     null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",        default: "", null: false
+    t.string   "plan_ids",    default: "", null: false
+    t.string   "article_ids", default: "", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade do |t|

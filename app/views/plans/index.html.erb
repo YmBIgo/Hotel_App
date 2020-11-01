@@ -1,17 +1,52 @@
-<div class="">
-	<h1 class="text-center">プラン一覧</h1>
-	<br>
-	<div class="row">
-		<% @plans.each do |plan| %>
-			<div class="col-6 col-sm-4">
-				<div class="card" style="padding:12px;margin-bottom:10px;">
-					<h6>
-						<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
-						<br><small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
-					</h6>
-					<p><small><%= plan.explanation %></small></p>
+<div class="row">
+	<div class="col-3">
+		<!---->
+		<%= render("/common/right_bar") %>
+	</div>
+	<div class="col-9">
+		<div class="">
+			<h1 class="text-center">プラン一覧</h1>
+			<% if @tag != nil %>
+				<div class="text-center">
+					<h6 style="border:1px solid rgba(140, 140, 140, .6); border-left:3px solid #4169e1; width:30%;margin-left:35%;padding:5px"><%= @tag.name %></h6>
 				</div>
+			<% end %>
+			<br>
+			<div class="row">
+				<% Tag.all.each do |tag| %>
+					<div class="col-3">
+						<a href="/plans?tags=<%= tag.id %>">
+							<div style="border:1px solid rgba(140, 140, 140, .6); border-left:3px solid #4169e1;padding:5px;margin-bottom:10px">
+								<small><%= tag.name %></small>
+							</div>
+						</a>
+					</div>
+				<% end %>
 			</div>
-		<% end %>
+			<hr>
+			<div class="row">
+				<% @plans.each do |plan| %>
+					<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
+					<div class="col-6 col-sm-4">
+						<div class="card" style="padding:12px;margin-bottom:10px;">
+							<h6>
+								<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
+									<% if tags != [] %>
+										<br>
+										<small style="font-size:7px;margin-top:10px;">
+											<% tags.each do |t| %>
+												<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+											<% end %>
+										</small>
+									<% end %>
+								<hr>
+								<br><small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
+							</h6>
+							<p><small><%= plan.explanation %></small></p>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>

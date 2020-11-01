@@ -1,84 +1,105 @@
-<div style="padding:30px 30px 10px 30px;">
-	<div class="card" style="padding:20px;">
-		<h4>ご予約の流れ</h4>
-		<hr>
-		<div class="row">
-			<div class="col-4">
-				<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
-					<h5>1 : 予約プラン確認</h5>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card" style="padding:10px;margin:5px 10px;">
-					<h5 style="color:rgba(30, 30, 30, .3)">2 : ご予約内容の入力</h5>
-				</div>
-			</div>
-			<div class="col-4">
-				<div class="card" style="padding:10px;margin:5px 10px;">
-					<h5 style="color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+<div class="row">
+	<div class="col-3">
+		<!---->
+		<%= render("/common/right_bar") %>
+	</div>
+	<div class="col-9" style="background-color:#f0f8ff">
+		<div style="padding:30px 30px 10px 30px;">
+			<div class="card" style="padding:20px;">
+				<h4>ご予約の流れ</h4>
+				<hr>
+				<div class="row">
+					<div class="col-4">
+						<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+							<h5>1 : 予約プラン確認</h5>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="padding:10px;margin:5px 10px;">
+							<h5 style="color:rgba(30, 30, 30, .3)">2 : ご予約内容の入力</h5>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="padding:10px;margin:5px 10px;">
+							<h5 style="color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<br>
-<div style="padding:30px;background-color:rgba(240, 255, 255, .4);">
-	<h1 class="text-center">部屋確認</h1>
-	<br>
-	<div class="row">
-		<% @plans.each do |plan| %>
-		<div class="col-6">
-			<div class="card" style="padding:15px;margin-bottom:20px;">
-				<h4><%= plan.title %></h4>
-				<hr>
-				<%= form_tag("/reservation/confirm", method: "get") do |f| %>
-				<h6>
-					<%= plan.explanation %>　<small>
-					<%= @prices_hash[plan.id] %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数
-					</small>
-				</h6>
-				<%= hidden_field_tag :plan_id, plan.id %>
-				<%= hidden_field_tag :start_date, @start_date %>
-				<%= hidden_field_tag :end_date, @end_date %>
-				<%= hidden_field_tag :people_num, @people_num %>
-				<%= submit_tag "予約する", :class => "btn btn-sm btn-primary" %>
+		<div style="padding:30px;">
+			<h1 class="text-center">部屋選択</h1>
+			<br>
+			<div class="row">
+				<% @plans.each do |plan| %>
+				<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
+				<div class="col-6">
+					<div class="card" style="padding:15px;margin-bottom:10px;">
+						<h4>
+							<%= plan.title %>
+							<% if tags != [] %>
+							<br>
+							<small style="font-size:7px;margin-left:7px;">
+								<% tags.each do |t| %>
+									<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+								<% end %>
+							</small>
+							<% end %>
+						</h4>
+						<hr>
+						<%= form_tag("/reservation/confirm", method: "get") do |f| %>
+						<h6>
+							<%= plan.explanation %>　<small>
+							<%= @prices_hash[plan.id] %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数
+							</small>
+						</h6>
+						<%= hidden_field_tag :plan_id, plan.id %>
+						<%= hidden_field_tag :start_date, @start_date %>
+						<%= hidden_field_tag :end_date, @end_date %>
+						<%= hidden_field_tag :people_num, @people_num %>
+						<p>
+							<%= submit_tag "予約する", :class => "btn btn-sm btn-primary" %>　
+							<a href="/plans/<%= plan.id %>" class="btn btn-sm btn-success" style="color:#fff;">部屋を見る</a>
+						</p>
+						<% end %>
+					</div>
+				</div>
 				<% end %>
 			</div>
 		</div>
-		<% end %>
-	</div>
-</div>
-<div class="" style="padding:30px;">
-	<div class="checkin-form-section" style="background-color:rgba(210, 210, 210, .95);color:black;padding:20px;border-radius:10px;">
-	<h1 class="text-center">宿泊予約</h1>
-	<hr>
-		<%= form_tag("/reservations/new", method: "get") do  %>
-			<div class="row">
-				<div class="col-6">
-				<p>
-				チェックイン日時　　
-				<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
-				</p>
-				</div>
-				<div class="col-6">
-				<p>
-				チェックアウト日時　
-				<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
-				</p>
-				</div>
-				<div class="col-6">
-				<p>
-				１室あたりの人数　　
-				<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
-				<!--室数　-->
-				<% number_field_tag :room_num, nil, :class => "form-control", :style => "width:75px;display:inline-block;" %>
-				</p>
-				</div>
+		<div class="" style="padding:30px;">
+			<div class="checkin-form-section" style="background-color:rgba(210, 210, 210, .95);color:black;padding:20px;border-radius:10px;">
+			<h1 class="text-center">宿泊予約</h1>
+			<hr>
+				<%= form_tag("/reservations/new", method: "get") do  %>
+					<div class="row">
+						<div class="col-6">
+						<p>
+						チェックイン日時　　
+						<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
+						</p>
+						</div>
+						<div class="col-6">
+						<p>
+						チェックアウト日時　
+						<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:50%;display:inline-block;" %>
+						</p>
+						</div>
+						<div class="col-6">
+						<p>
+						１室あたりの人数　　
+						<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
+						<!--室数　-->
+						<% number_field_tag :room_num, nil, :class => "form-control", :style => "width:75px;display:inline-block;" %>
+						</p>
+						</div>
+					</div>
+					<p class="text-center">
+					<%= submit_tag("検索する", :class => "btn btn-sm btn-default", :style => "width:30%;") %>
+					</p>
+				<% end %>
 			</div>
-			<p class="text-center">
-			<%= submit_tag("検索する", :class => "btn btn-sm btn-default", :style => "width:30%;") %>
-			</p>
-		<% end %>
+			<br>
+		</div>
 	</div>
-	<br>
 </div>

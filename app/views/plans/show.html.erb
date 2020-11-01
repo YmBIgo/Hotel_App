@@ -5,6 +5,7 @@
 		　<a href="/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">編集する</a>　<a href="/plans/new" class="btn btn-sm btn-info">新規作成する</a>
 	<% end %>
 	</h3>
+	<img src="<%= @plan.fixed_image_url %>" style="width:60%;margin:20px 0;">
 	<small><%= @plan.people_num %>人　<%= @plan.price %>円</small>
 	<p>
 		<%= @plan.explanation %>

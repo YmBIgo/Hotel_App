@@ -58,3 +58,23 @@ user = User.new(:email => "megufuji123@gmail.com", :password => ENV["EMAIL_PASS"
 if user.valid? & user.new_record?
 	user.save!
 end
+
+# tags
+tag1 = Tag.new(:name => "家族で行ける")
+
+tag2 = Tag.new(:name => "カップル・夫婦向け")
+
+tag3 = Tag.new(:name => "定番")
+
+tag4 = Tag.new(:name => "アニバーサリー")
+
+tag5 = Tag.new(:name => "お得なプラン")
+
+tag6 = Tag.new(:name => "イベント")
+
+tag7 = Tag.new(:name => "ゆったり")
+
+tag8 = Tag.new(:name => "アクティブ")
+
+save_plan(tag1);save_plan(tag2);save_plan(tag3);save_plan(tag4);
+save_plan(tag5);save_plan(tag6);save_plan(tag7);save_plan(tag8);

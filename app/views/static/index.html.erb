@@ -8,11 +8,12 @@
 	</div>
 </div>
 <br>
+<h1 class="">さあ！富士山の旅に出よう！</h1>
+<br>
 <div class="row">
 	<div class="col-4">
-		<h1 class="">さあ！富士山の旅に出よう！</h1>
-		<br>
 		<p>
+		<br>
 		富士山・河口湖など観光地に近い立地。
 		<br>
 		旅先の疲れを癒してくれる宿泊施設。
@@ -51,6 +52,22 @@
 	</div>
 </div>
 </div>
+<br>
+<div class="row">
+	<div class="col-4" style="border:2px solid black">
+		<div style="background-image: url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/top/megufuji.jpg');height:400px;width:105%;background-repeat: no-repeat, repeat;background-size: cover;">
+		</div>
+	</div>
+	<div class="col-8" style="border:2px solid black;border-left:1px solid black">
+		<div style="margin-right:30%">
+		<h1 style="margin-top:20px;padding-left:10px;">最高の宿泊施設を<br>目指し</h1>
+		<hr>
+		<p style="word-wrap: break-word;">
+		testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+		</p>
+		</div>
+	</div>
+</div>
 <!-- background-image:url('/assets/15895080_1288033254569028_5250487018125880334_n.jpg'); -->
 <br>
 <div style="background-color:rgba(220, 220, 220, .7);padding:20px;background-size: cover;opacity:.95">
@@ -61,7 +78,7 @@
 	<% end %>
 	<div class="row">
 		<div class="col-12">	
-			<div style="color:#eee;background-color:rgba(20, 20, 20, .95);border-radius:5px;height:190px;padding:20px;margin-bottom:35px;">
+			<div style="color:#eee;background-color:rgba(20, 20, 20, .95);border-radius:5px;height:190px;padding:30px;margin-bottom:35px;">
 				<h4 class="text-center">最上級の宿泊を提供します</h4>
 				<hr style="border-color:#999">
 				<p>
@@ -72,20 +89,32 @@
 			</div>
 		</div>
 		<% @plans.each do |plan| %>
-			<div class="col-6">
+			<div class="col-6" >
 				<div class="card" style="padding:12px;margin-bottom:10px;">
-					<h6>
-						<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
-					</h6>
-					<br>
-					<div class="row">
-					<div class="col-6">
-					<small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
-					<p><small><%= plan.explanation %></small></p>
-					</div>
-					<div class="col-6">
-					<img src="/assets/IMG_5632.JPG" style="height:120px;">
-					</div>
+					<div style="width:100%;padding-left:0%;">
+						<a href="/plans/<%= plan.id %>">
+							<img src="<%= plan.fixed_image_url %>" style="width:100%;height:300px">
+						</a>
+						<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
+						<h5 class="text-center" style="margin-top:7px">
+							<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
+							<small style="font-size:7px;margin-left:7px;">
+								<% tags.each do |t| %>
+									<a href="/plans?tags=<%= t.id %>"><span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+									</a>
+								<% end %>
+							</small>
+						</h5>
+						<div class="row">
+							<div class="col-6">
+
+								<small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
+								<p><small><%= plan.explanation %></small></p>
+							</div>
+							<div class="col-6">
+								<a href="/plans/<%= plan.id %>" style="margin-top:11px" class="btn btn-info">カレンダーを見る</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -93,42 +122,47 @@
 		<a href="/plans" class="btn btn-primary" style="margin-left:15px;">もっと見る</a>
 	</div>
 </div>
-<h1 class="text-center" style="margin:45px 0;">オプション一覧</h1>
+<h1 class="text-center" style="margin:35px 0;">最高の旅行の思い出を残しましょう。</h1>
+<p class="text-center" style="width:35%;margin:0 32%;font-size:9px;word-wrap: break-word;">
+	testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+</p>
+<hr style="width:10%;border-color:rgba(255, 0, 0, .3);">
 <% if user_signed_in? %>
 	<a href="/articles/new" class="btn btn-sm btn-warning text-center" style="margin-bottom:10px;">オプション作成</a>
 	<br>
 <% end %>
 <!-- background-image:url('/assets/IMG_5069.JPG'); -->
-<div style="background-image:url('/assets/IMG_5069.JPG'); ;background-size: cover;padding:20px;opacity:.9" class="row">
-<!--<div class="row">-->
-	<div class="col-4" style="padding:20px;max-height:300px;color:#222;background-color:rgba(240, 240, 240, .82);border-radius:5px;">
-		<h4>私たちの提供する価値</h4>
-		<br>
-		<p>
-			私たちは宿泊にとどまらず、様々なアクティビティも提供しています。
-			<br>
-			お客様が「また来たい」と思えるような価値の提供に今後も努めていきます。
-			<br><br>
-			<a href="/articles?is_option=0" class="btn btn-sm btn-primary">詳細を見る</a>
-		</p>
-	</div>
-	<div class="col-8">
-		<div class="row">
-			<% @options.each do |option| %>
-				<div class="col-6">
-					<div class="card" style="padding:20px;margin-bottom:10px;">
-						<h5><%= option.title %></h5>
-						<img src="/assets/IMG_0501.JPG" style="width:80%">
-						<p><%= strip_tags(option.content)[0..15] %>...</p>
-						<a href="/articles/<%= option.id %>" class="btn btn-sm btn-info">詳細見る</a>
-					</div>
+  <style>
+  	.scroll-section::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+        display:none;
+    }
+  </style>
+  <div>
+	<div>
+		<div class="row" style="margin:0 7%">
+		<% @options.each do |option| %>
+			<div class="col-6" id="scroll-block-<%= option.id %>" <% if option.id%2 == 1 %>style="margin-top:45px;"<% end %>>
+				<div style="padding:20px;margin-bottom:10px;">
+				<img src="<%= option.fixed_image_url %>" style="width:70%">
+				<h5 style="margin-top:20px;"><%= option.title %></h5>
+				<p><%= strip_tags(option.content)[0..15] %>...は、私たちが提供できる活動です。</p>
+				<a href="/articles/<%= option.id %>" class="btn btn-sm btn-info">詳細見る</a>
 				</div>
-			<% end %>
-			<br>
-			<a href="/articles?is_option=0" class="btn btn-sm btn-primary" style="margin-left:15px">詳細を見る</a>
+			</div>
+		<% end %>
+			<div class="col-6">
+				<div style="padding:20px;margin-bottom:10px;">
+				<img src="/assets/common/common2.jpg" style="width:70%">
+				<h5 style="margin-top:20px;">もっと見る</h5>
+				<p>私たち、もっと多くの活動を提供しています。</p>
+				<a href="/articles/" class="btn btn-sm btn-info">もっと見る</a>
+				</div>
+			</div>
 		</div>
 	</div>
+	<br>
 </div>
+<a href="/articles?is_option=0" class="btn btn-sm btn-primary" style="margin-left:15px">詳細を見る</a>
 <br>
 <h1 class="text-center">記事一覧</h1>
 <% if user_signed_in? %>
@@ -141,7 +175,7 @@
 	<% @articles.each do |article| %>
 		<td>
 			<div class="" style="padding:20px;margin-bottom:10px;">
-				<img src="/assets/IMG_0493.JPG" style="width:150px;margin-left:5%;">
+				<img src="<%= article.fixed_image_url %>" style="width:120px;height:70px;margin-left:5px;">
 				<h5 style="margin-top:7px;"><%= article.title %></h5>
 				<p><%= strip_tags(article.content)[0..15] %>...</p>
 				<a href="/articles/<%= article.id %>" class="btn btn-sm btn-info">詳細見る</a>

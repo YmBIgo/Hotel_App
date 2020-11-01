@@ -2,13 +2,18 @@ require "digest/md5"
 class ReservationsController < ApplicationController
 
 	before_action :authenticate_user!, :only => [:index]
+	skip_before_action :verify_authenticity_token, :only => [:pay]
 
 	def show
 		@reservation = Reservation.find(params[:id])
-		reservation_hash = params["reservation_hash"]
-		if reservation_hash != @reservation.url_hash
-			redirect_to "/"
-			return
+		@reservation_hash = params["reservation_hash"]
+		if user_signed_in?
+			@email = @reservation.email
+		else
+			if @reservation_hash != @reservation.url_hash
+				redirect_to "/"
+				return
+			end
 		end
 		@plan = Plan.find(@reservation.plan_id)
 	end
@@ -24,6 +29,7 @@ class ReservationsController < ApplicationController
 		@prices_hash = cal_price(@plans, @start_date, @end_date)
 	end
 	def create
+		# int の 0, 1 以外処理
 		start_date  = params[:start_date]
 		end_date    = params[:end_date]
 		check_accurate_date(start_date, end_date)
@@ -53,6 +59,40 @@ class ReservationsController < ApplicationController
 		check_accurate_date(@start_date, @end_date)
 		@plan = Plan.find(params["plan_id"])
 		@prices_hash = cal_price([@plan], @start_date, @end_date)
+	end
+	def check
+		@id = params[:id]
+		@reservation = Reservation.find(@id)
+		@email = params[:email]
+		@reservation_hash = params[:reservation_hash]
+		unless user_signed_in?
+			if @reservation_hash != @reservation.url_hash
+				redirect_to "/"
+				return
+			elsif @email != @reservation.email
+				redirect_to "/reservations/#{@id}?reservation_hash=#{@reservation_hash}"
+				return
+			end
+		end
+		@plan = Plan.find(@reservation.plan_id)
+	end
+	def pay
+		id = params[:id]
+		reservation_hash = params[:reservation_hash]
+		reservation = Reservation.find(id)
+	# }bnaBN
+
+		if reservation.url_hash == reservation_hash
+			Payjp.api_key = "sk_test_bb26886048e8a974df00e02c"
+			charge = Payjp::Charge.create(
+			    amount: reservation.price,
+			    card: params['payjp-token'],
+			    currency: 'jpy')
+			reservation.update(has_paid => true)
+		else
+		end
+
+		redirect_to "/reservations/#{id}?reservation_hash=#{reservation_hash}"
 	end
 
 	private
@@ -108,11 +148,14 @@ class ReservationsController < ApplicationController
 	end
 	# check date
 	def check_accurate_date(s_date, e_date)
-		if s_date == "" || e_date == ""
+		if s_date.to_s == "" || e_date.to_s == ""
 			redirect_to "/"
 			return
 		else
 			if Date.parse(s_date) > Date.parse(e_date)
+				redirect_to "/"
+				return
+			elsif Date.parse(s_date) < Date.today || Date.parse(e_date) < Date.today
 				redirect_to "/"
 				return
 			end

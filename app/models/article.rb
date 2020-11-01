@@ -6,4 +6,11 @@ class Article < ActiveRecord::Base
 			return "記事"
 		end
 	end
+	def fixed_image_url
+		if self.thumbnail == ""
+			return "/assets/common/common2.jpg"
+		else
+			return self.thumbnail
+		end
+	end
 end

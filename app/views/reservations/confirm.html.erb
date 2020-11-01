@@ -32,6 +32,16 @@
 				<%= @plan.title %>　<small><%= @start_date %>～<%= @end_date %>の宿泊</small>
 				</h4>
 				<h6>
+				<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+				<% if tags != [] %>
+					<small style="font-size:7px;">
+						<% tags.each do |t| %>
+							<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+						<% end %>
+					</small>
+					<br><br>
+				<% end %>
+
 				<%= hidden_field_tag :plan_id, @plan.id %>
 				<%= hidden_field_tag :people_num, @plan.people_num %>
 				<%= hidden_field_tag :start_date, @start_date %>
@@ -72,4 +82,5 @@
 		</div>
 	</div>
 	</div>
+</div>
 </div>

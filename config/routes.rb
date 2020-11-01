@@ -62,5 +62,7 @@ Rails.application.routes.draw do
   get 'reservation/confirm' => "reservations#confirm"
   get 'top' => "static#index"
   root to: "static#index"
+  post 'reservations/check/:id' => "reservations#check"
+  post 'pay' => "reservations#pay"
 
 end
