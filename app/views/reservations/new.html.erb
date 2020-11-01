@@ -1,52 +1,46 @@
 <div style="width::100%">
 	<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
-		<div class="text-center" style="width:40%;margin-left:30%;padding-top:100px;padding-bottom:100px">
-			<h4 style="background-color:rgba(240, 240, 240, .6);height:100px;padding-top:33px;">
-			<strong>1 : 予約プランの確認</strong>
-			</h4>
-		</div>
-	</div>
-</div>
-<br>
-<div class="row">
-	<div class="col-3">
-		<!---->
-		<%= render("/common/right_bar") %>
-	</div>
-	<div class="col-9" style="background-color:#f0f8ff">
 		<div style="padding:30px 30px 10px 30px;">
-			<div class="card" style="padding:20px;">
-				<h4>ご予約の流れ</h4>
+			<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45);">
+				<h4>〇 ご予約の流れ</h4>
 				<hr>
 				<div class="row">
 					<div class="col-4">
 						<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
-							<h5>1 : 予約プラン確認</h5>
+							<h5 style="margin-bottom:0px">1 : 予約プラン確認</h5>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card" style="padding:10px;margin:5px 10px;">
-							<h5 style="color:rgba(30, 30, 30, .3)">2 : ご予約内容の入力</h5>
+							<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">2 : ご予約内容の入力</h5>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card" style="padding:10px;margin:5px 10px;">
-							<h5 style="color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+							<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">3 : 予約完了</h5>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<!-- background-color:#f0f8ff -->
+	<div class="col-8" style="border-right:1px solid rgba(210, 210, 210, .7)">
 		<div style="padding:30px;">
-			<h1 class="text-center">部屋選択</h1>
+			<div class="text-center" style="margin-bottom:7px">
+				<span><strong><%= @plans.length %>件の検索結果があります。</strong></span>
+			</div>
 			<br>
 			<div class="row">
 				<% @plans.each do |plan| %>
 				<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
-				<div class="col-6">
-					<div class="card" style="padding:15px;margin-bottom:10px;">
+				<div class="col-12">
+					<div class="card" style="padding:15px;margin-bottom:10px;background-color:rgba(240, 240, 240, .6)">
 						<h4>
-							<%= plan.title %>
+							<%= plan.title %>　<small><%= @start_date %>～<%= @end_date %>の宿泊</small>
 							<% if tags != [] %>
 							<br>
 							<small style="font-size:7px;margin-left:7px;">
@@ -56,7 +50,7 @@
 							</small>
 							<% end %>
 						</h4>
-						<hr>
+						<img src="<%= plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
 						<%= form_tag("/reservation/confirm", method: "get") do |f| %>
 						<h6>
 							<%= plan.explanation %>　<small>
@@ -78,7 +72,7 @@
 			</div>
 		</div>
 		<div class="" style="padding:30px;">
-			<div class="checkin-form-section" style="background-color:rgba(210, 210, 210, .95);color:black;padding:20px;border-radius:10px;">
+			<div class="checkin-form-section" style="background-color:rgba(210, 210, 210, .95);color:black;padding:20px;border-radius:10px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
 			<h1 class="text-center">宿泊予約</h1>
 			<hr>
 				<%= form_tag("/reservations/new", method: "get") do  %>
@@ -110,6 +104,51 @@
 				<% end %>
 			</div>
 			<br>
+		</div>
+	</div>
+	<div class="col-4" style="padding-left:20px">
+		<!---->
+		<%= form_tag("/reservations/new", method: "get") do  %>
+			<div class="card text-left" style="padding:5px;margin-top:30px;background-color:rgba(240, 240, 240, .6)">
+				<p style="margin-bottom:5px;"><i class="fa fa-user"></i> 宿泊人数　<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;"  %>人</p>
+			</div>
+			<div class="card text-left" style="padding:5px;margin-top:10px;background-color:rgba(240, 240, 240, .6)">
+				<p style="margin-bottom:5px;"><i class="fa fa-calendar"></i> 宿泊日程　<%= @live_date %>日
+			</div>
+			<div class="card text-left" style="padding:5px;margin-top:10px;background-color:rgba(240, 240, 240, .6)">
+				<p style="margin-bottom:5px;">チェックイン<br><%= date_field_tag :start_date, @start_date, :class => "form-control", :style => "width:70%;display:inline-block;" %></p>
+			</div>
+			<div class="card text-left" style="padding:5px;margin-top:10px;background-color:rgba(240, 240, 240, .6)">
+				<p style="margin-bottom:5px;">チェックアウト<br><%= date_field_tag :end_date, @end_date, :class => "form-control", :style => "width:70%;display:inline-block;" %></p>
+			</div>
+			<p class="text-center">
+				<%= submit_tag("検索し直す", :class => "btn btn-sm btn-info", :style => "width:30%;margin-top:14px") %>
+			</p>
+		<% end %>
+		<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+			<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
+			<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
+			<hr>
+			<p class="text-center" style="margin-top:5px">
+				通常価格 <s>4000円</s> 
+				<br>
+				<span style="font-size:24px;color:#ff4500"><strong><u>予約すれば 3000円</u></strong></span>
+				<br>
+				<span >
+					testetstestetstetsettesttesttestetsttestettesttesttesttestetstetsettesttesttesttesttesttesttesttesttesttest...
+				</span>
+				<a href="/articles/<%= @articles[0].id %>" class="btn btn-info" style="margin-top:20px">詳しく見てみる</a>
+			</p>
+			<br>
+			<h5>こちらも割引されます</h5>
+			<div class="row">
+			<% @articles[1..-1].each do |article| %>
+				<div class="col-4 text-center">
+					<img src="<%= article.fixed_image_url %>" style="width:80%;margin-left:10%;margin-top:7px;">
+					<br>
+					<small><a href="/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>

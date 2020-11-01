@@ -1,102 +1,105 @@
 <div style="width::100%">
 	<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
-		<div class="text-center" style="width:40%;margin-left:30%;padding-top:100px;padding-bottom:100px">
-			<h4 style="background-color:rgba(240, 240, 240, .6);height:100px;padding-top:33px;">
-			<strong>2 : ご予約内容の入力</strong>
-			</h4>
+		<div style="padding:30px 30px 10px 30px;">
+			<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45)">
+				<h4>〇 ご予約の流れ</h4>
+				<hr>
+				<div class="row">
+					<div class="col-4">
+						<div class="card" style="padding:10px;margin:5px 10px;">
+							<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">1 : 予約プランの確認</h5>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+							<h5 style="margin-bottom:0px;">2 : ご予約内容の入力</h5>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="padding:10px;margin:5px 10px;">
+							<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col-3">
-		<!---->
-		<%= render("/common/right_bar") %>
-	</div>
-	<div class="col-9">
-	<div style="padding:30px 30px 10px 30px;">
-		<div class="card" style="padding:20px;">
-			<h4>ご予約の流れ</h4>
-			<hr>
+	<div class="col-7">
+		<div style="padding:30px;">
 			<div class="row">
-				<div class="col-4">
-					<div class="card" style="padding:10px;margin:5px 10px;">
-						<h5 style="color:rgba(30, 30, 30, .3)">1 : 予約プランの確認</h5>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
-						<h5>2 : ご予約内容の入力</h5>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card" style="padding:10px;margin:5px 10px;">
-						<h5 style="color:rgba(30, 30, 30, .3)">3 : 予約完了</h5>
+				<div class="col-12">
+					<div class="card" style="padding:15px;margin-bottom:20px;background-color:rgba(240, 240, 240, .6);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+						<%= form_tag("/reservations", method: "post") do |f| %>
+						<h4 style="margin-bottom:17px;">
+						<%= @plan.title %>　<small><%= @start_date %>～<%= @end_date %>の宿泊</small>
+						</h4>
+						<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
+						<h6>
+						<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+						<% if tags != [] %>
+							<small style="font-size:7px;">
+								<% tags.each do |t| %>
+									<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+								<% end %>
+							</small>
+							<br><br>
+						<% end %>
+
+						<%= hidden_field_tag :plan_id, @plan.id %>
+						<%= hidden_field_tag :people_num, @plan.people_num %>
+						<%= hidden_field_tag :start_date, @start_date %>
+						<%= hidden_field_tag :end_date, @end_date %>
+						<small>
+						<%= @plan.people_num %>人部屋　<%= @plan.room_num %>部屋数
+						</small>
+						<br><br>
+						<%= @plan.explanation %>
+						</h6>
+						<br>
+						<a href="/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">部屋を見る</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div style="padding:30px;">
-	<h1 class="text-center">部屋確認</h1>
-	<div class="row">
-		<div class="col-12">
-			<div class="card" style="padding:15px;margin-bottom:20px;">
-				<%= form_tag("/reservations", method: "post") do |f| %>
-				<h4 style="margin-bottom:17px;">
-				<%= @plan.title %>　<small><%= @start_date %>～<%= @end_date %>の宿泊</small>
-				</h4>
-				<h6>
-				<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
-				<% if tags != [] %>
-					<small style="font-size:7px;">
-						<% tags.each do |t| %>
-							<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
-						<% end %>
-					</small>
-					<br><br>
-				<% end %>
-
-				<%= hidden_field_tag :plan_id, @plan.id %>
-				<%= hidden_field_tag :people_num, @plan.people_num %>
-				<%= hidden_field_tag :start_date, @start_date %>
-				<%= hidden_field_tag :end_date, @end_date %>
-				<small>
-				<%= @prices_hash[@plan.id] %>円　<%= @plan.people_num %>人部屋　<%= @plan.room_num %>部屋数
-				</small>
-				<br><br>
-				<%= @plan.explanation %>
-				</h6>
-				<hr>
-			<div class="row">
-				<div class="col-6">
-					<p>名字　　
-					<%= text_field_tag :last_name, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
-					</p>
+	<div class="col-5">
+		<div style="padding:30px;">
+			<div class="card" style="padding:0 20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<div class="row" style="background-color:rgba(210, 210, 210, .8);padding:14px 0;margin-bottom:10px;border-bottom: 3px solid black;">
+					<div class="col-6">
+						総合計金額
+					</div>
+					<div class="col-6 text-right" style="font-size:21px">
+						<strong><%= @prices_hash[@plan.id] %>円</strong>
+					</div>
 				</div>
-				<div class="col-6">
-					<p>名前　　
-					<%= text_field_tag :first_name, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
-					</p>
-				</div>
-				<div class="col-6">
-					<p>メール　
-					<%= email_field_tag :email, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
-					</p>
+				<p style="margin-bottom:0">
+					<i class="fa fa-check"></i>　当ホテルでは、払い戻しに対応しておりません。
+					<br>
+					<i class="fa fa-check"></i>　当ホテルでは、
+				</p>
+				<table class="table">
+				<tr>
+					<td><small>名字</small></td>　　
+					<td><%= text_field_tag :last_name, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+				<tr><td><small>名前</small></td>　
+					<td><%= text_field_tag :first_name, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+				<tr><td><small>メール</small></td>　
+					<td><%= email_field_tag :email, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
 					<%= hidden_field_tag :plan_id, @plan.id %>
-				</div>
-				<div class="col-6">
-					<p>支払方法　
-					<%= select_tag :payment_type, options_for_select({"カード払い" => 1,"現地払い" => 2}), :class => "form-control", :style => "width:60%;display:inline-block;" %>
-					</p>
-				</div>
+				<tr><td><small>支払方法</small></td>　
+					<td><%= select_tag :payment_type, options_for_select({"カード払い" => 1,"現地払い" => 2}), :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+			</table>
 			</div>
-			<br>
-			<%= submit_tag "予約する", :class => "btn btn-sm btn-info text-center", :style => "width:200px;" %>
+			<%= submit_tag "予約する", :class => "btn btn-lg btn-info text-center", :style => "width:100%;margin-top:20px" %>
 			<% end %>
 		</div>
 	</div>
-	</div>
-</div>
-</div>
 </div>

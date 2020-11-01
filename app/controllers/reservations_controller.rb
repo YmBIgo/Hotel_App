@@ -24,9 +24,11 @@ class ReservationsController < ApplicationController
 		@people_num = params["people_num"].to_i
 		@start_date = params["start_date"]
 		@end_date   = params["end_date"]
+		@live_date  = (Date.parse(@end_date) - Date.parse(@start_date)).to_i
 		check_accurate_date(@start_date, @end_date)
 		@plans = list(params)
 		@prices_hash = cal_price(@plans, @start_date, @end_date)
+		@articles = Article.where(:id => [1, 5, 7, 14])
 	end
 	def create
 		# int の 0, 1 以外処理
