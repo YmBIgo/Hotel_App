@@ -4,6 +4,13 @@
 	<% if user_signed_in? %>
 		　<a href="/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">編集する</a>　<a href="/plans/new" class="btn btn-sm btn-info">新規作成する</a>
 	<% end %>
+	<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+	<small style="font-size:7px;margin-left:20px;">
+		<% tags.each do |t| %>
+			<a href="/plans?tags=<%= t.id %>"><span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+			</a>
+		<% end %>
+	</small>
 	</h3>
 	<img src="<%= @plan.fixed_image_url %>" style="width:60%;margin:20px 0;">
 	<small><%= @plan.people_num %>人　<%= @plan.price %>円</small>

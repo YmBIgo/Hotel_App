@@ -1,59 +1,68 @@
-<div class="" style="margin-top:24px">
-	<h3>ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
-	<br>
-	<div class="row">
-		<div class="col-6">
-			<div class="card" style="padding:20px;">
-				<h4><%= @plan.title %></h4>
-				<hr>
-				<p>1泊<%= @plan.price %>円　<%= @plan.people_num %>人部屋</p>
-				<p><%= @plan.explanation %></p>
-			</div>
-		</div>
-		<div class="col-6">
-			<div class="card" style="padding:20px;">
-				<h4>予約詳細</h4>
-				<hr>
-				<p><%= @reservation.last_name %> <%= @reservation.first_name %>さん (<%= @reservation.email %>)</p>
-				<p><%= @reservation.price %>円　<%= (@reservation.end_date - @reservation.start_date+1).to_i %>泊</p>
-				<p><%= @reservation.start_date %>～<%= @reservation.end_date %>　(<%= @reservation.people_num %>人)</p>
-			</div>
-		</div>
-		<div class="col-6">
-			<div class="card" style="padding:20px">
-				<h4>支払い状況</h4>
-				<hr>
-				<% if @reservation.payment_type == 1 %>
-					<p>
-						カード払い
-						<small>
-<form action="/pay" method="post">
-  <!-- 注文情報などの情報ここから -->
-  <input type="hidden" name="id" value="<%= @id %>">
-  <input type="hidden" name="reservation_hash" value="<%= @reservation_hash %>">
-  <!-- 注文情報などの情報ここまで -->
-  <script src="https://checkout.pay.jp/" class="payjp-button" data-key="pk_test_074b20baf64f13406ee14eec"></script>
-</form>
-						</small>
-					</p>
-
-				<% else %>
-					<p>
-						現地払い
-						<br>
-						<small>※　現地でお支払いください。</small>
-					</p>
-				<% end %>
-			</div>
-		</div>
+<div class="row">
+	<div class="col-3">
+		<!---->
+		<%= render("/common/right_bar") %>
 	</div>
-	<hr>
-	<div class="">
-		<h4>ご来泊になる前の注意事項</h4>
-		<br>
-		<ul>
-			<li></li>
-			<li></li>
-		</ul>
+	<div class="col-9">
+		<div class="" style="margin-top:24px">
+			<h3>ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
+			<br>
+			<div class="row">
+				<div class="col-6">
+					<div class="card" style="padding:20px;">
+						<h4><%= @plan.title %></h4>
+						<hr>
+						<p>1泊<%= @plan.price %>円　<%= @plan.people_num %>人部屋</p>
+						<p><%= @plan.explanation %></p>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card" style="padding:20px;">
+						<h4>予約詳細</h4>
+						<hr>
+						<p><%= @reservation.last_name %> <%= @reservation.first_name %>さん (<%= @reservation.email %>)</p>
+						<p><%= @reservation.price %>円　<%= (@reservation.end_date - @reservation.start_date+1).to_i %>泊</p>
+						<p><%= @reservation.start_date %>～<%= @reservation.end_date %>　(<%= @reservation.people_num %>人)</p>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card" style="padding:20px">
+						<h4>支払い状況</h4>
+						<hr>
+						<% if @reservation.payment_type == 1 %>
+							<p>
+								カード払い
+								<small>
+									<form action="/pay" method="post">
+									  <!-- 注文情報などの情報ここから -->
+									  <input type="hidden" name="id" value="<%= @id %>">
+									  <input type="hidden" name="reservation_hash" value="<%= @reservation_hash %>">
+									  <!-- 注文情報などの情報ここまで -->
+									  <script src="https://checkout.pay.jp/" class="payjp-button" data-key="pk_test_074b20baf64f13406ee14eec"></script>
+									</form>
+								</small>
+							</p>
+
+						<% else %>
+							<p>
+								現地払い
+								<br>
+								<small>※　現地でお支払いください。</small>
+							</p>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<br>
+			<hr>
+			<div class="">
+				<h4>ご来泊になる前の注意事項</h4>
+				<br>
+				<ul>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>

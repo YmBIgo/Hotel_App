@@ -174,7 +174,7 @@ class ReservationsController < ApplicationController
 	def cal_price(plans, s_date, e_date)
 		start_date = Date.parse(s_date)
 		end_date   = Date.parse(e_date)
-		remainrooms = Remainroom.where(room_date: start_date..end_date)
+		remainrooms = Remainroom.where(room_date: start_date...end_date)
 		plan_ids    = plans.map {|p| p.id }
 		result_hash = {}
 		remainrooms.each do |r_room|

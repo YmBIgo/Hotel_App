@@ -5,6 +5,8 @@
 		<br>
 	<% end %>
 	<small><%= @article.author %>さん</small>
+	<br>
+	<img src="<%= @article.fixed_image_url %>" style="width:70%;margin:20px 0;">
 	<hr>
 	<p>
 		<%= @article.content.html_safe %>
