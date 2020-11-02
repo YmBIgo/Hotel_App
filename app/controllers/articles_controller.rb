@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
 
 	def show
 		@article = Article.find(params[:id])
+		@articles = Article.where(:id => [@article.id, 5, 7, 14])
 	end
 	def index
 		if params[:is_option] == "0"

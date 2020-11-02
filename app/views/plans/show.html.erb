@@ -55,19 +55,25 @@
 <hr>
 <h5><strong>空室カレンダー</strong></h5>
 <%= month_calendar events: @reservations do |date, reservations| %>
-	<%= date %>
 	<div style="font-size:11px;">
+	<strong><%= date %></strong>
+	<hr style="margin:5px 0">
+	<%= @plan.price %>円
+	<br>
 	<% if reservations.length == 0 %>
-		<%= @plan.room_num %>件の空室があります
+		<%= @plan.room_num %>件の空室
 	<% else %>
 		<span style="color:#ff7f50;">
-		<%= @plan.room_num - reservations.length %>件の空室があります
+		<%= @plan.room_num - reservations.length %>件の空室
 		</span>
 	<% end %>
 	<% if user_signed_in? %>
 		<% f_remainroom = Remainroom.find_by(:room_date => date) %>
+		<br>
 		<% if f_remainroom != nil %>
-			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info">空室状況見る</a>
+			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info" style="font-size:10px;margin-top:4px">空室状況 確認</a>
+		<% else %>
+			<a href="/remainrooms/new?room_date=<%= date %>" class="btn btn-success btn-sm" style="font-size:10px;margin-top:4px">作成する</a>
 		<% end %>
 	<% end %>
 	</div>

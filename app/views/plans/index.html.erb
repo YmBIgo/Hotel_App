@@ -11,7 +11,7 @@
 					<h6 style="border:1px solid rgba(140, 140, 140, .6); border-left:3px solid #4169e1; width:30%;margin-left:35%;padding:5px"><%= @tag.name %></h6>
 				</div>
 			<% end %>
-			<br>
+			<hr style="border-color:red;width:100px;">
 			<div class="row">
 				<% Tag.all.each do |tag| %>
 					<div class="col-3">
@@ -39,7 +39,9 @@
 											<% end %>
 										</small>
 									<% end %>
-								<hr>
+								<a href="/plans/<%= plan.id %>">
+									<img src="<%= plan.fixed_image_url %>" style="width:100%;margin:20px 0;">
+								</a>
 								<br><small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
 							</h6>
 							<p><small><%= plan.explanation %></small></p>

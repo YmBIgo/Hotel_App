@@ -1,14 +1,47 @@
 <div class="">
-	<h4><%= @article.title %></h4>
-	<% if user_signed_in? %>
-		<a href="/articles/<%= @article.id %>/edit" class="btn btn-sm btn-success" style="margin-bottom:11px">編集する</a>
+	<div class="row">
+		<div class="col-8">
+		<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;"><%= @article.title %></h3>
+		<% if user_signed_in? %>
+			<a href="/articles/<%= @article.id %>/edit" class="btn btn-sm btn-success" style="margin-bottom:11px">編集する</a>
+			<br>
+		<% end %>
+		<small><%= @article.author %>さん</small>
 		<br>
-	<% end %>
-	<small><%= @article.author %>さん</small>
-	<br>
-	<img src="<%= @article.fixed_image_url %>" style="width:70%;margin:20px 0;">
-	<hr>
-	<p>
-		<%= @article.content.html_safe %>
-	</p>
+		<img src="<%= @article.fixed_image_url %>" style="width:97%;margin:20px 0;">
+		<br>
+		<p>
+			<%= @article.content.html_safe %>
+		</p>
+		</div>
+		<div class="col-4">
+			<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
+				<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
+				<hr>
+				<p class="text-center" style="margin-top:5px">
+					通常価格 <s>4000円</s> 
+					<br>
+					<span style="font-size:24px;color:#ff4500"><strong><u>予約すれば 3000円</u></strong></span>
+					<br>
+					<div class="text-left">
+						<%= strip_tags(@articles[0].content[0..100]) %>
+					</div>
+					<a href="/plans" class="btn btn-info" style="margin-top:20px">部屋を予約する</a>
+				</p>
+				<br>
+				<h5>こちらも割引されます</h5>
+				<div class="row">
+				<% @articles[1..-1].each do |article| %>
+					<div class="col-4 text-center">
+						<img src="<%= article.fixed_image_url %>" style="width:80%;margin-left:10%;margin-top:7px;">
+						<br>
+						<small><a href="/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
+					</div>
+				<% end %>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
 </div>

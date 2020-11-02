@@ -77,6 +77,7 @@ class ReservationsController < ApplicationController
 			end
 		end
 		@plan = Plan.find(@reservation.plan_id)
+		@articles = Article.where(:id => [1, 5, 7, 14])
 	end
 	def pay
 		id = params[:id]

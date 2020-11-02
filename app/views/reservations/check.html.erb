@@ -1,32 +1,61 @@
+<div style="width::100%">
+	<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
+		<div style="padding:30px 30px 10px 30px;">
+			<div class="card" style="margin-top:50px;padding:20px;background-color:rgba(240, 240, 240, .85);">
+				<h4 class="text-center"><strong>ご予約内容の確認</strong></h4>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
 <div class="row">
 	<div class="col-3">
 		<!---->
 		<%= render("/common/right_bar") %>
 	</div>
 	<div class="col-9">
-		<div class="" style="margin-top:24px">
-			<h3>ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
+		<div class="" style="margin-top:2px">
+			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
 			<br>
 			<div class="row">
-				<div class="col-6">
-					<div class="card" style="padding:20px;">
-						<h4><%= @plan.title %></h4>
-						<hr>
-						<p>1泊<%= @plan.price %>円　<%= @plan.people_num %>人部屋</p>
-						<p><%= @plan.explanation %></p>
+				<div class="col-7">
+					<div class="card" style="padding:20px;background-color:rgba(210, 210, 210, .7);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+					<h4 style="margin-bottom:17px;">
+					<%= @plan.title %>　<br><small><%= @reservation.start_date %>～<%= @reservation.end_date %>の宿泊</small>
+					</h4>
+					<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
+					<h6>
+					<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+					<% if tags != [] %>
+						<small style="font-size:7px;">
+							<% tags.each do |t| %>
+								<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+							<% end %>
+						</small>
+						<br><br>
+					<% end %>
+					<small>
+						<%= @plan.people_num %>人部屋　<%= @plan.room_num %>部屋数
+					</small>
+					<br><br>
+					<%= @plan.explanation %>
+					</h6>
+					<br>
+					<a href="/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">部屋を見る</a>
+					</div>
+					<br>
+					<hr>
+					<div class="">
+						<h4>ご来泊になる前の注意事項</h4>
+						<br>
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
 					</div>
 				</div>
-				<div class="col-6">
-					<div class="card" style="padding:20px;">
-						<h4>予約詳細</h4>
-						<hr>
-						<p><%= @reservation.last_name %> <%= @reservation.first_name %>さん (<%= @reservation.email %>)</p>
-						<p><%= @reservation.price %>円　<%= (@reservation.end_date - @reservation.start_date+1).to_i %>泊</p>
-						<p><%= @reservation.start_date %>～<%= @reservation.end_date %>　(<%= @reservation.people_num %>人)</p>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card" style="padding:20px">
+				<div class="col-5" style="">
+					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
 						<h4>支払い状況</h4>
 						<hr>
 						<% if @reservation.payment_type == 1 %>
@@ -51,18 +80,36 @@
 							</p>
 						<% end %>
 					</div>
+					<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+						<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
+						<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
+						<hr>
+						<p class="text-center" style="margin-top:5px">
+							通常価格 <s>4000円</s> 
+							<br>
+							<span style="font-size:24px;color:#ff4500"><strong><u>予約すれば 3000円</u></strong></span>
+							<br>
+							<span >
+								testetstestetstetsettesttesttestetsttestettesttesttesttestetstetsettesttesttesttesttesttesttesttesttesttest...
+							</span>
+							<a href="/articles/<%= @articles[0].id %>" class="btn btn-info" style="margin-top:20px">詳しく見てみる</a>
+						</p>
+						<br>
+						<h5>こちらも割引されます</h5>
+						<div class="row">
+						<% @articles[1..-1].each do |article| %>
+							<div class="col-4 text-center">
+								<img src="<%= article.fixed_image_url %>" style="width:80%;margin-left:10%;margin-top:7px;">
+								<br>
+								<small><a href="/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
+							</div>
+						<% end %>
+						</div>
+					</div>
 				</div>
-			</div>
-			<br>
-			<hr>
-			<div class="">
-				<h4>ご来泊になる前の注意事項</h4>
 				<br>
-				<ul>
-					<li></li>
-					<li></li>
-				</ul>
 			</div>
 		</div>
 	</div>
 </div>
+<br>
