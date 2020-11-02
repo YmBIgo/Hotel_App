@@ -19,6 +19,7 @@ gem 'pry', '0.13.1'
 gem 'simple_calendar', '2.4.0'
 gem 'gmail'
 gem 'payjp', '0.0.6'
+gem 'font-awesome-rails'
 
 ###### Default Gems
 gem 'ffi', '1.9.23'

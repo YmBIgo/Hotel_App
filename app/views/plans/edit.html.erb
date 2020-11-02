@@ -22,6 +22,19 @@
 		<p>HTML説明
 		<%= f.text_area :html_content, :class => "form-control", :style => "width:60%;height:150px;" %>
 		</p>
+		<p>ベッド</p>
+		<%= text_field_tag :bed, @update_array[0], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>Wifi</p>
+		<%= text_field_tag :wifi, @update_array[1], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>水回り</p>
+		<%= text_field_tag :water, @update_array[2], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>設備・アメニティ</p>
+		<%= text_field_tag :faculity, @update_array[3], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>子供・添い寝</p>
+		<%= text_field_tag :baby, @update_array[4], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>その他</p>
+		<%= text_field_tag :other, @update_array[5], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<hr>
 		<%= f.submit "更新する", :class => "btn btn-sm btn-info" %>
 	<% end %>
 </div>

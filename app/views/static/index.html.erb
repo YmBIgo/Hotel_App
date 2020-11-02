@@ -171,9 +171,11 @@
 	</div>
 </div>
 <a href="/articles?is_option=0" class="btn btn-sm btn-primary" style="margin-left:15px;margin-bottom:15px">詳細を見る</a>
-<div class="article-section" style="background-color:black;color:white">
+<div class="article-section" style="background-color:black;color:white;-webkit-transform: rotate(-5deg);-ms-transform: rotate(5deg);padding:0 100px;width:120%;margin-left:-10%">
+	<div style="-webkit-transform: rotate(5deg);-ms-transform: rotate(5deg);width:83%;margin-left:8%;">
 	<br>
-	<h1 class="text-center">
+
+	<h1 class="text-center" style="margin-top:20px">
 		周辺情報一覧
 		<% if user_signed_in? %>
 			<a href="/articles/new" class="btn btn-sm btn-warning text-center">記事作成</a>
@@ -183,8 +185,11 @@
 	<hr style="width:100px;border-color:white">
 	<p style="width:70%;margin-left:15%;word-wrap: break-word;">
 		testetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetste
+		<br>
+		<div class="text-center">
+		<a href="/articles" class="btn btn-sm btn-primary" style="margin-left:15px;margin-bottom:15px">詳細を見る</a>
+		</div>
 	</p>
-	<br>
 	<div class="table table-responsive">
 		<table class="table table-bordered table-striped">
 		<% @articles.each do |article| %>
@@ -201,8 +206,8 @@
 		<% end %>
 		</table>
 		<br>
+		</div>
 	</div>
-	<a href="/articles" class="btn btn-sm btn-primary" style="margin-left:15px;margin-bottom:15px">詳細を見る</a>
 </div>
 <div class="sns-section" style="margin:30px;">
 	<h1 class="text-center">SNS情報</h1>

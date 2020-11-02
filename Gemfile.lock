@@ -70,6 +70,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.23-x64-mingw32)
+    font-awesome-rails (4.7.0.5)
+      railties (>= 3.2, < 6.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gmail (0.7.1)
@@ -210,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (= 4.1.1)
   ffi (= 1.9.23)
+  font-awesome-rails
   gmail
   jbuilder (~> 2.0)
   jquery-rails
