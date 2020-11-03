@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
 
-	before_action :authenticate_user!, :only => [:edit, :update, :new, :create, :delete]
+	before_action :authenticate_user!, :only => [:edit, :update, :new, :create, :delete, :admin_index]
 
 	def show
 		@plan = Plan.find(params[:id])
@@ -19,6 +19,9 @@ class PlansController < ApplicationController
 		else
 			@plans = Plan.all
 		end
+	end
+	def admin_index
+		@plans = Plan.all
 	end
 	# 以降は、Devise 制限
 	def new

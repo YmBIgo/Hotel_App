@@ -56,13 +56,15 @@ Rails.application.routes.draw do
   #   end
 
   resources :plans
-  resources :reservations, :except => [:edit, :update]
+  get  'plans/admin_index' => "plans#admin_index"
   resources :articles
+  get  'articles/admin_index' => "articles#admin_index"
   resources :remainrooms
-  get 'reservation/confirm' => "reservations#confirm"
-  get 'top' => "static#index"
-  root to: "static#index"
+  resources :reservations, :except => [:edit, :update]
+  get  'reservation/confirm' => "reservations#confirm"
   post 'reservations/check/:id' => "reservations#check"
   post 'pay' => "reservations#pay"
+  get  'top' => "static#index"
+  root to: "static#index"
 
 end

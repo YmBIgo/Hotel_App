@@ -2,15 +2,15 @@
 	<div class="row" style="margin-top:20px">
 		<div class="col-3">
 			<ul class="list-group">
-				<li class="list-group-item active">ホーム</li>
-				<li class="list-group-item list-group-item-action">予約管理</li>
+				<li class="list-group-item active"><a href="/remainrooms" style="color:white">ホーム</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/reservations">予約管理</a></li>
 				<li class="list-group-item list-group-item-action">売上管理</li>
 				<li class="list-group-item list-group-item-action">プラン管理</li>
 				<li class="list-group-item list-group-item-action">記事管理</li>
 			</ul>
 		</div>
 		<div class="col-9">
-			<h5><strong>予算情報</strong></h5>
+			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;margin-bottom:"><strong>予算情報</strong></h3>
 			<div class="row">
 				<div class="col-6">
 				<div class="day-section">
@@ -83,6 +83,16 @@
 							<% rsrvs = Reservation.where(:start_date => d_date) %>
 							<td style="font-size:11px">
 								<%= rsrvs.length %>件の予約
+								<% if rsrvs.length != 0 %>
+									<br>
+									<% rsrvs_amount = 0 %>
+									<% rsrvs.map {|r| rsrvs_amount += r.price } %>
+									合計：<%= rsrvs_amount %>円
+									<br>
+									<a href="/reservations/<%= rsrvs[0].id %>"><%= rsrvs[0].email %></a> など
+									<br>
+									<a href="/remainrooms/<%= Remainroom.find_by(:room_date => d_date).id %>" class="btn btn-sm btn-success" style="margin-top:8px">詳しく見る</a>
+								<% end %>
 							</td>
 						<% end %>
 					</tr>

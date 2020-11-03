@@ -8,75 +8,127 @@
 	</div>
 </div>
 <br>
+<div class="card" style="padding:20px;border-width:2px;border-color:#87cefa;">
+	<h4 style="border-left:7px solid #87cefa; border-bottom:2px solid #87cefa;padding:11px;">ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h4>
+	<br>
+	<div class="row">
+		<div class="col-sm-7 col-12">
+			<div class="row">
+				<div class="col-6">
+					<i class="fa fa-phone"></i>　080-0000-0000
+				</div>
+				<div class="col-6">
+					<i class="fa fa-map"></i>　富士山駅から徒歩1分
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-6">
+					<h6 style="margin-bottom:5px;">チェックイン</h6>
+					<div style="font-size:24px">
+						<strong><%= @reservation.start_date %></strong>
+					</div>
+					<div>
+						14時～20時
+					</div>
+				</div>
+				<div class="col-6">
+					<h6>チェックアウト</h6>
+					<div style="font-size:24px">
+						<strong><%= @reservation.end_date %></strong>
+					</div>
+					<div>
+						～10時
+					</div>
+				</div>
+				<div class="row" style="width:95%;background-color:rgba(210, 210, 210, .6);color:#111;margin-top:17px;margin-left:3%;padding:10px;border-radius:5px;">
+					<h4 style="margin-bottom:0;"><strong>会計</strong></h4>
+				</div>
+			</div>
+			<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<h4>
+				<div class="row">
+					<div class="col-7">合計金額</div>
+					<div class="col-5 text-right"><%= @reservation.price %>円</div>
+				</h4>
+				<hr style="margin:5px 0;">
+				<% if @reservation.payment_type == 1 %>
+					<p style="display:inline-block">
+						<small>
+							<form action="/pay" method="post">
+								  <!-- 注文情報などの情報ここから -->
+							<input type="hidden" name="id" value="<%= @id %>">
+							<input type="hidden" name="reservation_hash" value="<%= @reservation_hash %>">
+								  <!-- 注文情報などの情報ここまで -->
+							<script src="https://checkout.pay.jp/" class="payjp-button" data-key="pk_test_074b20baf64f13406ee14eec"></script>
+							</form>
+						</small>
+					</p>
+				<% else %>
+					<p>
+						現地払い
+						<br>
+						<small>※　現地でお支払いください。</small>
+					</p>
+				<% end %>
+			</div>
+				<div class="" style="margin-top:20px;margin-left:10px">
+					<h5><i class="fa fa-bars"></i>　ご来泊になる前の注意事項</h5>
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+		</div>
+		<div class="col-sm-5 col-12">
+			<div class="card" style="padding:20px;border-color:#ff7f50;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);color:#ff7f50;border-width:2px;">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d812.2172388161176!2d138.79497912914908!3d35.48278599081342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601960cdf5f52ff9%3A0x8061fd196d04cdb6!2z5pel5pys44CB44CSNDAzLTAwMDUg5bGx5qKo55yM5a-M5aOr5ZCJ55Sw5biC5LiK5ZCJ55Sw77yS5LiB55uu77yX4oiS77yR77yT!5e0!3m2!1sja!2stw!4v1604319482967!5m2!1sja!2stw" width="100%" height="200" frameborder="0" style="border:0;margin-bottom:15px" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				<h4>ホテルの場所</h4>
+				<p>〒403-0005 山梨県富士吉田市上吉田２丁目７−１３ 日本</p>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
 <div class="row">
 	<div class="col-12">
 		<div class="" style="margin-top:2px">
-			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
-			<br>
 			<div class="row">
-				<div class="col-8">
-					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
-						<h4>ご来泊になる前の注意事項</h4>
-						<br>
-						<ul>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<br>
-					<div class="card" style="padding:20px;background-color:rgba(210, 210, 210, .7);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
-					<h4 style="margin-bottom:17px;">
-					<%= @plan.title %>　<br><small><%= @reservation.start_date %>～<%= @reservation.end_date %>の宿泊</small>
-					</h4>
-					<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
-					<h6>
-					<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
-					<% if tags != [] %>
-						<small style="font-size:7px;">
-							<% tags.each do |t| %>
-								<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
-							<% end %>
+				<div class="col-sm-7 col-12">
+					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-color:#00008b;color:#00008b;border-width:2px;">
+						<h4 style="margin-bottom:17px;">
+							<%= @plan.title %>
+						</h4>
+						<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
+						<h6>
+						<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+						<% if tags != [] %>
+							<small style="font-size:7px;">
+								<% tags.each do |t| %>
+									<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+								<% end %>
+							</small>
+							<br><br>
+						<% end %>
+						<small>
+							<%= @plan.people_num %>人部屋　<%= @plan.room_num %>部屋数
 						</small>
 						<br><br>
-					<% end %>
-					<small>
-						<%= @plan.people_num %>人部屋　<%= @plan.room_num %>部屋数
-					</small>
-					<br><br>
-					<%= @plan.explanation %>
-					</h6>
+						<%= @plan.explanation %>
+						</h6>
+						<br>
+						<a href="/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">部屋を見る</a>
+					</div>
 					<br>
-					<a href="/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">部屋を見る</a>
+					<div class="card" style="padding:10px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-color:#90ee90;border-width:2px;">
+						<h4>部屋の詳細</h4>
+						<%= @plan.html_content.gsub("col-4", "col-12").html_safe %>
 					</div>
 					<br>
 				</div>
-				<div class="col-4" style="">
-					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
-						<h4>支払い状況</h4>
-						<hr>
-						<% if @reservation.payment_type == 1 %>
-							<p>
-								カード払い
-								<small>
-									<form action="/pay" method="post">
-									  <!-- 注文情報などの情報ここから -->
-									  <input type="hidden" name="id" value="<%= @id %>">
-									  <input type="hidden" name="reservation_hash" value="<%= @reservation_hash %>">
-									  <!-- 注文情報などの情報ここまで -->
-									  <script src="https://checkout.pay.jp/" class="payjp-button" data-key="pk_test_074b20baf64f13406ee14eec"></script>
-									</form>
-								</small>
-							</p>
-
-						<% else %>
-							<p>
-								現地払い
-								<br>
-								<small>※　現地でお支払いください。</small>
-							</p>
-						<% end %>
-					</div>
-					<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<div class="col-sm-5 col-12" style="">
+					<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-width:2px;">
 						<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
 						<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
 						<hr>
@@ -88,6 +140,7 @@
 							<span >
 								testetstestetstetsettesttesttestetsttestettesttesttesttestetstetsettesttesttesttesttesttesttesttesttesttest...
 							</span>
+							<br>
 							<a href="/articles/<%= @articles[0].id %>" class="btn btn-info" style="margin-top:20px">詳しく見てみる</a>
 						</p>
 						<br>
