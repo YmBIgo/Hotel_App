@@ -18,6 +18,9 @@ class RemainroomsController < ApplicationController
 	def index
 		@reservations = Reservation.all
 		@remainrooms = Remainroom.all
+		@day_price    = calc_price(@reservations, "day")
+		@week_price   = calc_price(@reservations, "week")
+		@month_price  = calc_price(@reservations, "month")
 	end
 	def new
 		room_date = Date.parse(params["room_date"])
@@ -75,6 +78,23 @@ class RemainroomsController < ApplicationController
 		end
 		remainroom.update(:room_prices => remainroom_hash.to_s)
 		return remainroom
+	end
+	def calc_price(reservations, duration)
+		resvs_array = []
+		if duration == "day"
+			0.upto(6) do |d|
+				resvs_array.push(reservations.where(:start_date => Date.today+d))
+			end
+		elsif duration == "week"
+			0.upto(6) do |d|
+				resvs_array.push(reservations.where(:start_date => (Date.today+d*7)..(Date.today+(d+1)*7-1)))
+			end
+		elsif duration == "month"
+			0.upto(6) do |d|
+				resvs_array.push(reservations.where(:start_date => (Date.today+d*30)..(Date.today+(d+1)*30-1)))
+			end
+		end
+		return resvs_array
 	end
 
 end

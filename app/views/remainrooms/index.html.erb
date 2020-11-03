@@ -1,14 +1,153 @@
-<br>
-<h5><strong>空室カレンダー</strong></h5>
-<%= month_calendar events: @reservations do |date, reservations| %>
-	<%= date %>
-	<% if user_signed_in? %>
+<div>
+	<div class="row" style="margin-top:20px">
+		<div class="col-3">
+			<ul class="list-group">
+				<li class="list-group-item active">ホーム</li>
+				<li class="list-group-item list-group-item-action">予約管理</li>
+				<li class="list-group-item list-group-item-action">売上管理</li>
+				<li class="list-group-item list-group-item-action">プラン管理</li>
+				<li class="list-group-item list-group-item-action">記事管理</li>
+			</ul>
+		</div>
+		<div class="col-9">
+			<h5><strong>予算情報</strong></h5>
+			<div class="row">
+				<div class="col-6">
+				<div class="day-section">
+					<% day_price = calc_price_array(@day_price) %>
+					<% day_date  = date_array("day") %>
+					<h6 style="border-left:7px solid #999; border-bottom:2px solid #999;padding:11px;">
+					日ごと売上 <%= day_price.sum %>円
+					</h6>
+					<canvas id="dayChart"></canvas>
+				</div>
+				</div>
+				<div class="col-6">
+				<div class="week-section">
+					<% week_price = calc_price_array(@week_price) %>
+					<% week_date  = date_array("week") %>
+					<h6 style="border-left:7px solid #999; border-bottom:2px solid #999;padding:11px;">週ごと売上 <%= week_price.sum %>円</h6>
+					<canvas id="weekChart"></canvas>
+				</div>
+				</div>
+				<div class="col-6">
+				<div class="month-section">
+					<% month_price = calc_price_array(@month_price) %>
+					<% month_date  = date_array("month") %>
+					<h6 style="border-left:7px solid #999; border-bottom:2px solid #999;padding:11px;">月ごと売上 <%= month_price.sum %>円</h6>
+					<canvas id="monthChart"></canvas>
+				</div>
+				</div>
+			</div>
+			<div>
+				<h5 style="border-left:7px solid #999; border-bottom:2px solid #999;padding:11px;margin-top:10px">1週間の予約</h5>
+				<table class="table table-striped">
+					<tr>
+						<td></td>
+						<% 0.upto(3) do |d| %>
+							<td><%= Date.today + d %></td>
+						<% end %>
+					</tr>
+					<tr>
+						<td>予約</td>
+						<% 0.upto(3) do |d| %>
+							<% d_date = Date.today + d %>
+							<% rsrvs = Reservation.where(:start_date => d_date) %>
+							<td style="font-size:11px">
+								<%= rsrvs.length %>件の予約
+								<% if rsrvs.length != 0 %>
+									<br>
+									<% rsrvs_amount = 0 %>
+									<% rsrvs.map {|r| rsrvs_amount += r.price } %>
+									合計：<%= rsrvs_amount %>円
+									<br>
+									<a href="/reservations/<%= rsrvs[0].id %>"><%= rsrvs[0].email %></a> など
+									<br>
+									<a href="/remainrooms/<%= Remainroom.find_by(:room_date => d_date).id %>" class="btn btn-sm btn-success" style="margin-top:8px">詳しく見る</a>
+								<% end %>
+							</td>
+						<% end %>
+					</tr>
+				</table>
+				<table class="table table-striped">
+					<tr>
+						<td></td>
+						<% 4.upto(6) do |d| %>
+							<td><%= Date.today + d %></td>
+						<% end %>
+					</tr>
+					<tr>
+						<td>予約</td>
+						<% 4.upto(6) do |d| %>
+							<% d_date = Date.today + d %>
+							<% rsrvs = Reservation.where(:start_date => d_date) %>
+							<td style="font-size:11px">
+								<%= rsrvs.length %>件の予約
+							</td>
+						<% end %>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<br>
+	<h5><strong>空室カレンダー</strong></h5>
+	<%= month_calendar events: @reservations do |date, reservations| %>
+		<div style="font-size:11px;">
+			<strong><%= "#{date.month}月#{date.day}日" %></strong>
+		</div>
+		<hr style="margin:5px 0">
 		<% f_remainroom = Remainroom.find_by(:room_date => date) %>
 		<% if f_remainroom != nil %>
-			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info">空室状況見る</a>
+			<a href="/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info" style="font-size:7px">空室状況見る</a>
 		<% else %>
-			<a href="/remainrooms/new?room_date=<%= date %>" class="btn btn-success btn-sm">作成する</a>
+			<a href="/remainrooms/new?room_date=<%= date %>" class="btn btn-success btn-sm" style="font-size:7px">作成する</a>
 		<% end %>
 	<% end %>
-	</div>
-<% end %>
+</div>
+
+<!-- day -->
+<script type="text/javascript">
+	var ctx = document.getElementById("dayChart").getContext('2d');
+	var wtx = document.getElementById("weekChart").getContext('2d');
+	var mtx = document.getElementById("monthChart").getContext('2d')
+	var chart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: <%= day_date.to_s.html_safe; %>,
+			datasets: [{
+				label: 'day data',
+				backgroundColor: 'rgba(255, 255, 255, .1)',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				data: <%= day_price.to_s; %>
+				}]
+			}
+	});
+	var chart2 = new Chart(wtx, {
+		type: 'line',
+		data: {
+			labels: <%= week_date.to_s.html_safe; %>,
+			datasets: [{
+				label: 'week data',
+				backgroundColor: 'rgba(255, 255, 255, .1)',
+				borderColor: 'rgba(0, 191, 255, 1)',
+				data: <%= week_price.to_s; %>
+				}]
+			}
+	});
+	var chart3 = new Chart(mtx, {
+		type: 'line',
+		data: {
+			labels: <%= month_date.to_s.html_safe; %>,
+			datasets: [{
+				label: 'month data',
+				backgroundColor: 'rgba(255, 255, 255, .1)',
+				borderColor: 'rgba(0, 250, 154, 1)',
+				data: <%= month_price.to_s; %>
+				}]
+			}
+	});
+</script>
+<!-- week -->
+
+<!-- month -->

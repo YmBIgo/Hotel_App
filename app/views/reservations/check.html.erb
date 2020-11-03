@@ -9,16 +9,21 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-3">
-		<!---->
-		<%= render("/common/right_bar") %>
-	</div>
-	<div class="col-9">
+	<div class="col-12">
 		<div class="" style="margin-top:2px">
 			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">ようこそ！<%= @reservation.last_name %> <%= @reservation.first_name %>さん</h3>
 			<br>
 			<div class="row">
-				<div class="col-7">
+				<div class="col-8">
+					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+						<h4>ご来泊になる前の注意事項</h4>
+						<br>
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					<br>
 					<div class="card" style="padding:20px;background-color:rgba(210, 210, 210, .7);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
 					<h4 style="margin-bottom:17px;">
 					<%= @plan.title %>　<br><small><%= @reservation.start_date %>～<%= @reservation.end_date %>の宿泊</small>
@@ -44,17 +49,8 @@
 					<a href="/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">部屋を見る</a>
 					</div>
 					<br>
-					<hr>
-					<div class="">
-						<h4>ご来泊になる前の注意事項</h4>
-						<br>
-						<ul>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
 				</div>
-				<div class="col-5" style="">
+				<div class="col-4" style="">
 					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
 						<h4>支払い状況</h4>
 						<hr>

@@ -73,7 +73,7 @@
 <h5><strong>空室カレンダー</strong></h5>
 <%= month_calendar events: @reservations do |date, reservations| %>
 	<div style="font-size:11px;">
-	<strong><%= date %></strong>
+	<strong><%= "#{date.month}月#{date.day}日" %></strong>
 	<hr style="margin:5px 0">
 	<%= @plan.price %>円
 	<br>
