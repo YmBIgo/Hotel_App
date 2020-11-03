@@ -1,9 +1,9 @@
 <div class="row">
-	<div class="col-3">
+	<div class="d-none d-sm-block col-3">
 		<!---->
 		<%= render("/common/right_bar") %>
 	</div>
-	<div class="col-9">
+	<div class="col-sm-9 col-12">
 		<div class="">
 			<h1 class="text-center">プラン一覧</h1>
 			<% if @tag != nil %>
@@ -14,7 +14,7 @@
 			<hr style="border-color:red;width:100px;">
 			<div class="row">
 				<% Tag.all.each do |tag| %>
-					<div class="col-3">
+					<div class="col-sm-3 col-6">
 						<a href="/plans?tags=<%= tag.id %>">
 							<div style="border:1px solid rgba(140, 140, 140, .6); border-left:3px solid #4169e1;padding:5px;margin-bottom:10px">
 								<small><%= tag.name %></small>
@@ -27,7 +27,7 @@
 			<div class="row">
 				<% @plans.each do |plan| %>
 					<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
-					<div class="col-6 col-sm-4">
+					<div class="col-12 col-sm-4">
 						<div class="card" style="padding:12px;margin-bottom:10px;">
 							<h6>
 								<a href="/plans/<%= plan.id %>"><%= plan.title %></a>

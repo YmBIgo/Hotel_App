@@ -1,6 +1,6 @@
 <div class="">
 	<div class="row">
-		<div class="col-8">
+		<div class="col-sm-8">
 		<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;"><%= @article.title %></h3>
 		<% if user_signed_in? %>
 			<a href="/articles/<%= @article.id %>/edit" class="btn btn-sm btn-success" style="margin-bottom:11px">編集する</a>
@@ -14,7 +14,7 @@
 			<%= @article.content.html_safe %>
 		</p>
 		</div>
-		<div class="col-4">
+		<div class="col-sm-4">
 			<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
 				<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
 				<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>

@@ -1,34 +1,38 @@
 <div style="width::100%">
-	<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
-		<div style="padding:30px 30px 10px 30px;">
-			<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45);">
-				<h4>〇 ご予約の流れ</h4>
-				<hr>
-				<div class="row">
-					<div class="col-4">
-						<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
-							<h5 style="margin-bottom:0px">1 : 予約プラン確認</h5>
+	<div class="row" style="min-width::100%;margin:0 !important;display:block;">
+		<div class="d-none d-sm-block">
+		<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
+			<div style="padding:30px 30px 10px 30px;">
+				<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45);">
+					<h4>〇 ご予約の流れ</h4>
+					<hr>
+					<div class="row">
+						<div class="col-4">
+							<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+								<h5 style="margin-bottom:0px">1 : 予約プラン確認</h5>
+							</div>
 						</div>
-					</div>
-					<div class="col-4">
-						<div class="card" style="padding:10px;margin:5px 10px;">
-							<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">2 : ご予約内容の入力</h5>
+						<div class="col-4">
+							<div class="card" style="padding:10px;margin:5px 10px;">
+								<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">2 : ご予約内容の入力</h5>
+							</div>
 						</div>
-					</div>
-					<div class="col-4">
-						<div class="card" style="padding:10px;margin:5px 10px;">
-							<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">3 : 予約完了</h5>
+						<div class="col-4">
+							<div class="card" style="padding:10px;margin:5px 10px;">
+								<h5 style="color:rgba(30, 30, 30, .3);margin-bottom:0px">3 : 予約完了</h5>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
 </div>
 <br>
 <div class="row">
 	<!-- background-color:#f0f8ff -->
-	<div class="col-8" style="border-right:1px solid rgba(210, 210, 210, .7)">
+	<div class="col-sm-8 col-12" style="border-right:1px solid rgba(210, 210, 210, .7)">
 		<div style="padding:0 30px;">
 			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">予約プラン確認</h3>
 			<div class="text-left" style="margin-top:15px; margin-bottom:4px;">
@@ -107,7 +111,7 @@
 			<br>
 		</div>
 	</div>
-	<div class="col-4" style="padding-left:20px">
+	<div class="col-sm-4 col-12" style="padding-left:20px">
 		<!---->
 		<%= form_tag("/reservations/new", method: "get") do  %>
 			<div class="card text-left" style="padding:5px;margin-top:30px;background-color:rgba(240, 240, 240, .6)">
@@ -150,6 +154,7 @@
 					<small><a href="/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
 				</div>
 			<% end %>
+			</div>
 		</div>
 	</div>
 </div>
