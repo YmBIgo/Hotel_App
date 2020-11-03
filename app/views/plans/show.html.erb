@@ -20,7 +20,6 @@
 		<p>
 			<%= @plan.explanation %>
 		</p>
-		<br>
 	</div>
 	<div class="col-5" style="margin-top:20px;">
 		<div class="card" style="padding:20px;background-color:rgba(210, 210, 210, .6)">
@@ -52,13 +51,14 @@
 		</div>
 	</div>
 </div>
+<hr>
 <h5>
 	<strong>設備等</strong>
 	<% if user_signed_in? %>
 		　<a href="/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">編集する</a>　<a href="/plans/new" class="btn btn-sm btn-info">新規作成する</a>
 	<% end %>
 </h5>
-<hr>
+<br>
 <p style="margin:0 5px">
 	<%= @plan.html_content.html_safe %>
 </p>
@@ -88,4 +88,5 @@
 	<% end %>
 	</div>
 <% end %>
+</div>
 <br>

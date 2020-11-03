@@ -34,7 +34,11 @@ class PlansController < ApplicationController
 	end
 	def edit
 		@plan = Plan.find(params[:id])
-		@update_array = parse_update_html(@plan)
+		if @plan.html_content != ""
+			@update_array = parse_update_html(@plan)
+		else
+			@update_array = ["", "", "", "", "", ""]
+		end
 	end
 	def update
 		@plan = Plan.find(params[:id])
