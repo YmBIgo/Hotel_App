@@ -52,7 +52,7 @@ class ReservationsController < ApplicationController
 				# hash生成して、cookieなしで認証できるように
 				r_hash = generate_hash(params[:email], params[:start_date], params[:plan_id])
 				@reservation.update(:url_hash => r_hash)
-				@reservation_url = root_url + "reservations/" + @reservation.id.to_s + "?reservation_hash=" + r_hash
+				@reservation_url = root_url + "/reservations/" + @reservation.id.to_s + "?reservation_hash=" + r_hash
 				send_mail(params[:email], @reservation_url)
 				@reservation.save!
 			else
