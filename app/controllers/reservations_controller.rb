@@ -19,6 +19,15 @@ class ReservationsController < ApplicationController
 	end
 	def index
 		@reservations = Reservation.all
+		# start_date / end_date / last_name / first_name / email
+		if params.keys.length > 2
+			@reservations = search_date(@reservations, params["start_date"], params["end_date"])
+			params.each do |k, v|
+				unless k == "utf8" || k == "controller" || k == "action" || k == "commit" || k == "start_date" || k == "end_date"
+					@reservations = search_param(@reservations, k, v)
+				end
+			end
+		end
 	end
 	def new
 		@people_num = params["people_num"].to_i
@@ -191,5 +200,21 @@ class ReservationsController < ApplicationController
 			end
 		end
 		return result_hash
+	end
+	def search_param(reservation, key, value)
+		r = reservation
+		unless value == ""
+			r = reservation.where("#{key} LIKE ?", "%#{value}%")
+		end
+		return reservation
+	end
+	def search_date(reservation, start_date, end_date)
+		r 		= reservation
+		unless start_date == "" || end_date == ""
+			start_d = Date.parse(start_date)
+			end_d   = Date.parse(end_date)
+			r = reservation.where(:start_date => start_d..(end_d-1) ).where(:end_date => (start_d+1)..end_d)
+		end
+		return r
 	end
 end

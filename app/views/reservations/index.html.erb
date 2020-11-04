@@ -2,10 +2,10 @@
 	<div class="col-3">
 		<ul class="list-group">
 			<li class="list-group-item active"><a href="/remainrooms" style="color:white">ホーム</a></li>
-			<li class="list-group-item list-group-item-action"><a href="/reservations">予約管理</a></li>
+			<li class="list-group-item list-group-item-action"><a href="/reservations">プラン管理</a></li>
 			<li class="list-group-item list-group-item-action">売上管理</li>
-			<li class="list-group-item list-group-item-action">プラン管理</li>
-			<li class="list-group-item list-group-item-action">記事管理</li>
+			<li class="list-group-item list-group-item-action"><a href="/plan/admin_index">プラン管理</a></li>
+			<li class="list-group-item list-group-item-action"><a href="/article/admin_index">記事管理</a></li>
 		</ul>
 	</div>
 	<div class="col-9">
@@ -69,13 +69,44 @@
 			</tr>
 		</table>
 		<h4 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">予約管理</h4>
+		<div class="card" style="padding:20px">
+			<h3>検索する</h3>
+			<%= form_tag("/reservations/", method: :get) do %>
+				<div class="row">
+					<div class="col-6">
+						<p style="margin-bottom:0;">開始日</p>
+						<%= date_field_tag :start_date, Date.today, :class => "form-control", :style => "width:90%" %>
+					</div>
+					<div class="col-6">
+						<p style="margin-bottom:0;">終了日</p>
+						<%= date_field_tag :end_date, Date.today + 30, :class => "form-control", :style => "width:90%" %>
+					</div>
+					<div class="col-6">
+						<p style="margin-bottom:0;">名字</p>
+						<%= text_field_tag :last_name, nil, :class => "form-control", :style => "width:90%", :placeholder => "ヤマダ" %>
+					</div>
+					<div class="col-6">
+						<p style="margin-bottom:0;">名前</p>
+						<%= text_field_tag :first_name, nil, :class => "form-control", :style => "width:90%", :placeholder => "タロウ" %>
+					</div>
+					<div class="col-6">
+						<p style="margin-bottom:0;">メールアドレス</p>
+						<%= text_field_tag :email, nil, :class => "form-control", :style => "width:90%", :placeholder => "sample@test.com" %>
+					</div>
+				</div>
+				<br>
+				<%= submit_tag "調べる", :class => "btn btn-info" %>
+			<% end %>
+		</div>
 		<table class="table" style="margin-top:30px">
 			<thead>
 				<td>ID</td>
 				<td>メール</td>
 				<td>名前</td>
+				<td></td>
+				<td></td>
 				<td>Plan ID</td>
-				<td>ハッシュ</td>
+				<td style="width:100px;">ハッシュ</td>
 				<td>値段</td>
 			</thead>
 			<% @reservations.each do |resv| %>
@@ -83,8 +114,10 @@
 					<td><a href="/reservations/<%= resv.id %>?reservation_hash=<%= resv.url_hash %>"><%= resv.id %></a></td>
 					<td><%= resv.email %></td>
 					<td><%= resv.first_name %> <%= resv.last_name %></td>
+					<td><%= resv.start_date %></td>
+					<td><%= resv.end_date %></td>
 					<td><a href="/plans/<%= resv.plan_id %>"><%= resv.plan_id %></a></td>
-					<td><%= resv.url_hash %></td>
+					<td style="width:100px;"><%= resv.url_hash %></td>
 					<td><%= resv.price %>円</td>
 				</tr>
 			<% end %>

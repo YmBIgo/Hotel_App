@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :set_locale
+  before_action :locale
 
   protected
   # 
@@ -44,6 +46,18 @@ class ApplicationController < ActionController::Base
       end
     end
     gmail.logout
+  end
+
+  # locate
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+  def locale
+    @locale ||= params[:locale] ||= I18n.default_locale
+  end
+  def default_url_options(options={})
+    options.merge(locale: locale)
+    # { :locale => I18n.locale }
   end
 
 end

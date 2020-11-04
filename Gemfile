@@ -20,6 +20,9 @@ gem 'simple_calendar', '2.4.0'
 gem 'gmail'
 gem 'payjp', '0.0.6'
 gem 'font-awesome-rails'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
+gem 'rails-i18n'
 
 ###### Default Gems
 gem 'ffi', '1.9.23'

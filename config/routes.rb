@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,16 +54,31 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :plans
-  get  'plans/admin_index' => "plans#admin_index"
-  resources :articles
-  get  'articles/admin_index' => "articles#admin_index"
-  resources :remainrooms
-  resources :reservations, :except => [:edit, :update]
-  get  'reservation/confirm' => "reservations#confirm"
-  post 'reservations/check/:id' => "reservations#check"
-  post 'pay' => "reservations#pay"
-  get  'top' => "static#index"
-  root to: "static#index"
+  # devise_for :users
+  # resources :plans
+  # get  'plan/admin_index' => "plans#admin_index"
+  # resources :articles
+  # get  'article/admin_index' => "articles#admin_index"
+  # resources :remainrooms
+  # resources :reservations, :except => [:edit, :update]
+  # get  'reservation/confirm' => "reservations#confirm"
+  # post 'reservations/check/:id' => "reservations#check"
+  # post 'pay' => "reservations#pay"
+  # get  'top' => "static#index"
+  # root to: "static#index"
 
+  scope '(:locale)', locale: /en|ja/ do
+    devise_for :users
+    resources :plans
+    get  'plan/admin_index' => "plans#admin_index"
+    resources :articles
+    get  'article/admin_index' => "articles#admin_index"
+    resources :remainrooms
+    resources :reservations, :except => [:edit, :update]
+    get  'reservation/confirm' => "reservations#confirm"
+    post 'reservations/check/:id' => "reservations#check"
+    post 'pay' => "reservations#pay"
+    get  'top' => "static#index"
+    root to: "static#index"
+  end
 end

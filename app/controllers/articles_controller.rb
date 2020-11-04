@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
 
-	before_action :authenticate_user!, :except => [:index, :show]
+	before_action :authenticate_user!, :except => [:index, :show, :admin_index]
 
 	def show
 		@article = Article.find(params[:id])
@@ -12,6 +12,9 @@ class ArticlesController < ApplicationController
 		else
 			@articles = Article.where(:article_type => 1)
 		end
+	end
+	def admin_index
+		@articles = Article.page(params[:page]).per(10)
 	end
 	def new
 		@article = Article.new

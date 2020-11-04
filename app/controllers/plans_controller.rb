@@ -21,7 +21,7 @@ class PlansController < ApplicationController
 		end
 	end
 	def admin_index
-		@plans = Plan.all
+		@plans = Plan.page(params[:page]).per(10)
 	end
 	# 以降は、Devise 制限
 	def new
