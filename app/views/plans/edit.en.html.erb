@@ -1,0 +1,40 @@
+<div class="card" style="padding:20px;">
+	<h3>プラン作成する</h3>
+	<%= form_for @plan do |f| %>
+		<p>タイトル　
+		<%= f.text_field :title, :class => "form-control", :style => "width:60%" %>
+		</p>
+		<p>部屋人数　
+		<%= f.number_field :people_num, :class => "form-control", :style => "width:60%" %>
+		</p>
+		<p>価格　
+		<%= f.number_field :price, :class => "form-control", :style => "width:60%" %>
+		</p>
+		<p>説明
+		<%= f.text_area :explanation, :class => "form-control", :style => "width:60%;height:80px;" %>
+		</p>
+		<% n = 0; %>
+		<% tag_array = Tag.all.map { |t| n+=1; "#{n}:#{t.name}" } %>
+		<p>タグ<br><small><strong><%= tag_array.to_s %></strong> をコンマ区切りで入力して下さい。</small>
+		<br>
+		<%= f.text_field :tag_ids, :class => "form-control", :style => "width:60%", :placeholder => "複数ある場合は、',' で区切ってください　例 1, 2" %>
+		</p>
+		<p>HTML説明
+		<%= f.text_area :html_content, :class => "form-control", :style => "width:60%;height:150px;" %>
+		</p>
+		<p>ベッド</p>
+		<%= text_field_tag :bed, @update_array[0], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>Wifi</p>
+		<%= text_field_tag :wifi, @update_array[1], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>水回り</p>
+		<%= text_field_tag :water, @update_array[2], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>設備・アメニティ</p>
+		<%= text_field_tag :faculity, @update_array[3], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>子供・添い寝</p>
+		<%= text_field_tag :baby, @update_array[4], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<p>その他</p>
+		<%= text_field_tag :other, @update_array[5], :class => "form-control", :style => "width:60%;height:150px;" %>
+		<hr>
+		<%= f.submit "更新する", :class => "btn btn-sm btn-info" %>
+	<% end %>
+</div>

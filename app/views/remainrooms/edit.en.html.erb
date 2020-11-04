@@ -1,0 +1,35 @@
+<div class="">
+	<h3><%= @remainroom.room_date %> Reservation</h3>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<h5>Reservation Room Status</h5>
+			<table class="table">
+			<% @plans_remainrooms.each do |p_room_k, p_room_c| %>
+				<% plan = Plan.find(p_room_k) %>
+				<tr>
+					<td><a href="/plans/<%= plan.id %>"><%= plan.title %></a>　<a href="/plans/<%= plan.id %>/edit" class="btn btn-sm btn-info">Edit</a></td>
+					<td><%= p_room_c %></td>
+				</tr>
+			<% end %>
+			</table>
+		</div>
+		<div class="col-6">
+			<h5>Price Status</h5>
+			<%= form_for @remainroom do |f| %>
+			<table class="table">
+				<% @price_remainrooms.each do |pr_room_k, pr_room_c| %>
+					<% plan = Plan.find(pr_room_k) %>
+					<tr>
+						<td><a href="/plans/<%= plan.id %>"><%= plan.title %></a></td>
+						<td><%= f.text_field :"remainroom_#{pr_room_k.to_s}", :class => "form-control", :value => pr_room_c %></td>
+					</tr>
+				<% end %>
+			</table>
+			<%= f.submit "Change", :class => "btn btn-sm btn-primary" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="">
+	</div>
+</div>

@@ -1,0 +1,99 @@
+<div class="card" style="padding:20px;">
+	<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">
+	<strong><%= @plan.title %></strong>
+	<% if user_signed_in? %>
+		　<a href="/en/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">Edit</a>　<a href="/en/plans/new" class="btn btn-sm btn-info">Create</a>
+	<% end %>
+	<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+	<small style="font-size:7px;margin-left:20px;">
+		<% tags.each do |t| %>
+			<a href="/en/plans?tags=<%= t.id %>"><span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+			</a>
+		<% end %>
+	</small>
+	</h3>
+	<div class="row">
+	<div class="col-sm-7">
+		<img src="<%= @plan.fixed_image_url %>" style="width:90%;margin:20px 0;">
+		<br>
+		<small><%= @plan.people_num %>Person　<%= @plan.price %>Yen</small>
+		<p>
+			<%= @plan.explanation %>
+		</p>
+	</div>
+	<div class="col-sm-5" style="margin-top:20px;">
+		<div class="card" style="padding:20px;background-color:rgba(210, 210, 210, .6)">
+			<h4><strong>Reserve</strong></h4>
+			<%= form_tag("/en/reservation/confirm", method: "get") do |f| %>
+				<div class="row">
+					<div class="col-12">
+						<p>
+						CheckIn Date　　
+						<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %>
+						</p>
+					</div>
+					<div class="col-12">
+						<p>
+						Checkout Date　
+						<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %>
+						</p>
+					</div>
+					<div class="col-12">
+						<p>
+						Persons in one room　　
+						<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
+						</p>
+					</div>
+					<%= hidden_field_tag :plan_id, @plan.id %>
+				</div>
+				<%= submit_tag "Reserve", :class => "btn btn-sm btn-primary" %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<hr>
+<h5>
+	<strong>Faculties</strong>
+	<% if user_signed_in? %>
+		　<a href="/en/plans/<%= @plan.id %>/edit" class="btn btn-sm btn-success">Edit</a>　<a href="/en/plans/new" class="btn btn-sm btn-info">Create</a>
+	<% end %>
+</h5>
+<br>
+<p style="margin:0 5px">
+	<div class="row">
+<!-- 		<div class="d-none d-sm-block">
+			<% @plan.html_content.html_safe %>
+		</div> -->
+		<div class="d-sm-block d-sm-done">
+			<%= @plan.html_content.gsub("col-4", "col-12").html_safe %>
+		</div>
+	</div>
+</p>
+<hr>
+<h5><strong>Room Calendar</strong></h5>
+<%= month_calendar events: @reservations do |date, reservations| %>
+	<div style="font-size:11px;">
+	<strong><%= "#{date.month} / #{date.day}" %></strong>
+	<hr style="margin:5px 0">
+	<%= @plan.price %>Yen
+	<br>
+	<% if reservations.length == 0 %>
+		<%= @plan.room_num %> vacant rooms
+	<% else %>
+		<span style="color:#ff7f50;">
+		<%= @plan.room_num - reservations.length %> vacant rooms
+		</span>
+	<% end %>
+	<% if user_signed_in? %>
+		<% f_remainroom = Remainroom.find_by(:room_date => date) %>
+		<br>
+		<% if f_remainroom != nil %>
+			<a href="/en/remainrooms/<%= f_remainroom.id %>" class="btn btn-sm btn-info" style="font-size:10px;margin-top:4px">Check Availability</a>
+		<% else %>
+			<a href="/en/remainrooms/new?room_date=<%= date %>" class="btn btn-success btn-sm" style="font-size:10px;margin-top:4px">Create</a>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>
+</div>
+<br>

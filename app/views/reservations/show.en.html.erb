@@ -1,0 +1,17 @@
+<div class="" style="margin-top:24px">
+	<h4>Please enter your email address for confirmation.</h4>
+	<%= form_tag("/en/reservations/check/#{@reservation.id}", method: :post) do %>
+		<%= text_field_tag :email, @email, :class => "form-control", :style => "width:60%;margin:20px 0;", :placeholder => "Email" %>
+		<%= hidden_field_tag :reservation_hash, @reservation_hash %>
+		<%= submit_tag "Confirm", :class => "btn btn-sm btn-info" %>
+	<% end %>
+	<hr>
+	<div class="">
+		<h4>Precautions before stay</h4>
+		<br>
+		<ul>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>

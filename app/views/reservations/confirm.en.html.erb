@@ -1,0 +1,114 @@
+<div style="width::100%">
+	<div class="row" style="min-width::100%;margin:0 !important;display:block;">
+		<div class="d-none d-sm-block">
+			<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
+				<div style="padding:30px 30px 10px 30px;">
+					<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45)">
+						<h4>〇 Reservation flow</h4>
+						<hr>
+						<div class="row">
+							<div class="col-4">
+								<div class="card" style="padding:10px;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">1 : Confirm reservation plan</h5>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;">2 : Enter reservation details</h5>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card" style="padding:10px;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">3 : Reservation complete</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div style="padding:0 30px;width:60%">
+	<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">ご予約内容の入力</h3>
+</div> -->
+<div class="row" style="margin-top:20px">
+	<div class="col-sm-7 col-12">
+		<div style="padding:0 30px;">
+			<div style="margin-bottom:30px;">
+				<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;">Enter reservation details</h3>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="card" style="padding:15px;margin-bottom:20px;background-color:rgba(240, 240, 240, .6);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+						<%= form_tag("/en/reservations", method: "post") do |f| %>
+						<h4 style="margin-bottom:17px;">
+						<%= @plan.title %>　<small><%= @start_date %>～<%= @end_date %> Stay</small>
+						</h4>
+						<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
+						<h6>
+						<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+						<% if tags != [] %>
+							<small style="font-size:7px;">
+								<% tags.each do |t| %>
+									<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+								<% end %>
+							</small>
+							<br><br>
+						<% end %>
+
+						<%= hidden_field_tag :plan_id, @plan.id %>
+						<%= hidden_field_tag :people_num, @plan.people_num %>
+						<%= hidden_field_tag :start_date, @start_date %>
+						<%= hidden_field_tag :end_date, @end_date %>
+						<small>
+						<%= @plan.people_num %> Person Room /　<%= @plan.room_num %>Rooms
+						</small>
+						<br><br>
+						<%= @plan.explanation %>
+						</h6>
+						<br>
+						<a href="/en/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">Details</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5 col-12">
+		<div style="padding:30px;">
+			<div class="card" style="padding:0 20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<div class="row" style="background-color:rgba(210, 210, 210, .8);padding:14px 0;margin-bottom:10px;border-bottom: 3px solid black;">
+					<div class="col-6">
+						Total Ammount of Money
+					</div>
+					<div class="col-6 text-right" style="font-size:21px">
+						<strong><%= @prices_hash[@plan.id] %>Yen</strong>
+					</div>
+				</div>
+				<p style="margin-bottom:0">
+					<i class="fa fa-check"></i>　This hotel does not offer refunds.
+					<br>
+					<i class="fa fa-check"></i>　This hotel
+				</p>
+				<table class="table">
+				<tr>
+					<td><small>Last name</small></td>　　
+					<td><%= text_field_tag :last_name, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+				<tr><td><small>Name</small></td>　
+					<td><%= text_field_tag :first_name, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+				<tr><td><small>Email</small></td>　
+					<td><%= email_field_tag :email, nil, :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+					<%= hidden_field_tag :plan_id, @plan.id %>
+				<tr><td><small>Payment Method</small></td>　
+					<td><%= select_tag :payment_type, options_for_select({"Credit Card Payment" => 1,"Pay at the Hotel" => 2}), :class => "form-control", :style => "width:90%;display:inline-block;" %></td>
+				</tr>
+			</table>
+			</div>
+			<%= submit_tag "Reserve", :class => "btn btn-lg btn-info text-center", :style => "width:100%;margin-top:20px" %>
+			<% end %>
+		</div>
+	</div>
+</div>

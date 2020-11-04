@@ -1,0 +1,164 @@
+<div style="width::100%">
+	<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
+		<div style="padding:30px 30px 10px 30px;">
+			<div class="card" style="margin-top:50px;padding:20px;background-color:rgba(240, 240, 240, .85);">
+				<h4 class="text-center"><strong>Check Reservation Status</strong></h4>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="card" style="padding:20px;border-width:2px;border-color:#87cefa;">
+	<h4 style="border-left:7px solid #87cefa; border-bottom:2px solid #87cefa;padding:11px;">Welcome!<%= @reservation.last_name %> <%= @reservation.first_name %></h4>
+	<br>
+	<div class="row">
+		<div class="col-sm-7 col-12">
+			<div class="row">
+				<div class="col-6">
+					<i class="fa fa-phone"></i>　080-0000-0000
+				</div>
+				<div class="col-6">
+					<i class="fa fa-map"></i>　1 minute walk from Mt. Fuji Station
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-6">
+					<h6 style="margin-bottom:5px;">CheckIn</h6>
+					<div style="font-size:24px">
+						<strong><%= @reservation.start_date %></strong>
+					</div>
+					<div>
+						2PM～8PM
+					</div>
+				</div>
+				<div class="col-6">
+					<h6>CheckOut</h6>
+					<div style="font-size:24px">
+						<strong><%= @reservation.end_date %></strong>
+					</div>
+					<div>
+						～10AM
+					</div>
+				</div>
+				<div class="row" style="width:95%;background-color:rgba(210, 210, 210, .6);color:#111;margin-top:17px;margin-left:3%;padding:10px;border-radius:5px;">
+					<h4 style="margin-bottom:0;"><strong> Order</strong></h4>
+				</div>
+			</div>
+			<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<h4>
+				<div class="row">
+					<div class="col-7">Total Price</div>
+					<div class="col-5 text-right"><%= @reservation.price %>Yen</div>
+				</h4>
+				<hr style="margin:5px 0;">
+				<% if @reservation.payment_type == 1 %>
+					<p style="display:inline-block">
+						<small>
+							<form action="/pay" method="post">
+								  <!-- 注文情報などの情報ここから -->
+							<input type="hidden" name="id" value="<%= @id %>">
+							<input type="hidden" name="reservation_hash" value="<%= @reservation_hash %>">
+								  <!-- 注文情報などの情報ここまで -->
+							<script src="https://checkout.pay.jp/" class="payjp-button" data-key="pk_test_074b20baf64f13406ee14eec"></script>
+							</form>
+						</small>
+					</p>
+				<% else %>
+					<p>
+						Pay at the hotel
+						<br>
+						<small>* Please pay at the hotel.</small>
+					</p>
+				<% end %>
+			</div>
+				<div class="" style="margin-top:20px;margin-left:10px">
+					<h5><i class="fa fa-bars"></i>　Precautions before stay</h5>
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+		</div>
+		<div class="col-sm-5 col-12">
+			<div class="card" style="padding:20px;border-color:#ff7f50;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);color:#ff7f50;border-width:2px;">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d812.2172388161176!2d138.79497912914908!3d35.48278599081342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601960cdf5f52ff9%3A0x8061fd196d04cdb6!2z5pel5pys44CB44CSNDAzLTAwMDUg5bGx5qKo55yM5a-M5aOr5ZCJ55Sw5biC5LiK5ZCJ55Sw77yS5LiB55uu77yX4oiS77yR77yT!5e0!3m2!1sja!2stw!4v1604319482967!5m2!1sja!2stw" width="100%" height="200" frameborder="0" style="border:0;margin-bottom:15px" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				<h4>Address</h4>
+				<p>〒403-0005 山梨県富士吉田市上吉田２丁目７−１３ 日本</p>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-12">
+		<div class="" style="margin-top:2px">
+			<div class="row">
+				<div class="col-sm-7 col-12">
+					<div class="card" style="padding:20px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-color:#00008b;color:#00008b;border-width:2px;">
+						<h4 style="margin-bottom:17px;">
+							<%= @plan.title %>
+						</h4>
+						<img src="<%= @plan.fixed_image_url %>" style="width:80%;margin-bottom:10px">
+						<h6>
+						<% tags = Tag.where(:id => eval("[#{@plan.tag_ids}]") ) %>
+						<% if tags != [] %>
+							<small style="font-size:7px;">
+								<% tags.each do |t| %>
+									<span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+								<% end %>
+							</small>
+							<br><br>
+						<% end %>
+						<small>
+							<%= @plan.people_num %>Person Room /　<%= @plan.room_num %> Rooms
+						</small>
+						<br><br>
+						<%= @plan.explanation %>
+						</h6>
+						<br>
+						<a href="/en/plans/<%= @plan.id %>" class="btn btn-sm btn-primary">Details</a>
+					</div>
+					<br>
+					<div class="card" style="padding:10px;box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-color:#90ee90;border-width:2px;">
+						<h4>Service of this room</h4>
+						<%= @plan.html_content.gsub("col-4", "col-12").html_safe %>
+					</div>
+					<br>
+				</div>
+				<div class="col-sm-5 col-12" style="">
+					<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);border-width:2px;">
+						<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
+						<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
+						<hr>
+						<p class="text-center" style="margin-top:5px">
+							Normal Price <s>4000Yen</s> 
+							<br>
+							<span style="font-size:24px;color:#ff4500"><strong><u>If you reserve 3000Yen</u></strong></span>
+							<br>
+							<span >
+								testetstestetstetsettesttesttestetsttestettesttesttesttestetstetsettesttesttesttesttesttesttesttesttesttest...
+							</span>
+							<br>
+							<a href="/en/articles/<%= @articles[0].id %>" class="btn btn-info" style="margin-top:20px">Details</a>
+						</p>
+						<br>
+						<h5>Descounts</h5>
+						<div class="row">
+						<% @articles[1..-1].each do |article| %>
+							<div class="col-4 text-center">
+								<img src="<%= article.fixed_image_url %>" style="width:80%;margin-left:10%;margin-top:7px;">
+								<br>
+								<small><a href="/en/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
+							</div>
+						<% end %>
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+</div>
+<br>

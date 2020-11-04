@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="d-none d-sm-block col-sm-3">
+		<!---->
+		<%= render("/common/right_bar") %>
+	</div>
+	<div class="col-sm-9 col-12">
+		<h3>Articles</h3>
+		<hr>
+		<div class="row">
+		<% @articles.each do |article| %>
+			<div class="col-sm-4 col-6">
+				<div class="card" style="padding:10px;margin-bottom:10px;">
+					<h6><%= article.title %></h6>
+					<img src="<%= article.fixed_image_url %>" style="width:90%;height:70px;margin-bottom:5px;">
+					<p><small><%= strip_tags(article.content)[0..15] %></small></p>
+					<a href="/articles/<%= article.id %>" class="btn btn-sm btn-info">Details</a>
+				</div>
+			</div>
+		<% end %>
+		<br><br>
+	</div>
+</div>

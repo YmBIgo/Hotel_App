@@ -20,10 +20,10 @@ class ReservationsController < ApplicationController
 	def index
 		@reservations = Reservation.all
 		# start_date / end_date / last_name / first_name / email
-		if params.keys.length > 2
+		if params.keys.length > 3
 			@reservations = search_date(@reservations, params["start_date"], params["end_date"])
 			params.each do |k, v|
-				unless k == "utf8" || k == "controller" || k == "action" || k == "commit" || k == "start_date" || k == "end_date"
+				unless k == "utf8" || k == "controller" || k == "action" || k == "commit" || k == "start_date" || k == "end_date" || k == "locale"
 					@reservations = search_param(@reservations, k, v)
 				end
 			end
@@ -213,7 +213,10 @@ class ReservationsController < ApplicationController
 		unless start_date == "" || end_date == ""
 			start_d = Date.parse(start_date)
 			end_d   = Date.parse(end_date)
-			r = reservation.where(:start_date => start_d..(end_d-1) ).where(:end_date => (start_d+1)..end_d)
+			r = reservation.where(:start_date => start_d..(end_d-1) )
+			if r != nil
+				r = r.where(:end_date => (start_d+1)..end_d)
+			end
 		end
 		return r
 	end

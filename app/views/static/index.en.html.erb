@@ -3,54 +3,54 @@
 		<h3 style="color:white;padding-left:20%;width:80%;padding-top:150px;">
 			Welcome to Megu Fuji.
 			<br>
-			富士山の魅力を満喫できる宿へ。
+			To an inn where you can fully enjoy Mt. Fuji.
 			<br>
 			[English]
 		</h3>
 		<div style="padding-left:20%;">
-			<a href="/plans" class="btn btn-dark">部屋を見る</a>
+			<a href="/en/plans" class="btn btn-dark">View room</a>
 		</div>
 	</div>
 </div>
 <br>
-<h1 class="">さあ！富士山の旅に出よう！</h1>
+<h1 class="">Let's go on a trip to Mt. Fuji!</h1>
 <br>
 <div class="row">
 	<div class="col-sm-4">
 		<p>
 		<br>
-		富士山・河口湖など観光地に近い立地。
+		Location close to sightseeing spots such as Mt. Fuji and Lake Kawaguchi.
 		<br>
-		旅先の疲れを癒してくれる宿泊施設。
+		Accommodation that will heal the tiredness of your trip.
 		<br>
-		観光案内に慣れているスタッフ。
+		Staff accustomed to tourist information.
 		<br>
-		様々な美味しい料理店。
+		Various delicious restaurants. or so on...
 		<br><br>
-		<strong>観光にとどまらない旅先の思い出を提供します。</strong>
+		<strong>We provide memories of travel destinations that go beyond sightseeing.</strong>
 		</p>
 	</div>
 	<div class="col-sm-8">
 	<div class="checkin-form-section" style="background-color:#4682B4;color:white;padding:20px;border-radius:10px;">
-	<h1 class="text-center">宿泊予約</h1>
+	<h1 class="text-center">Hotel reservation</h1>
 	<hr>
-		<%= form_tag("reservations/new", method: "get") do  %>
+		<%= form_tag("en/reservations/new", method: "get") do  %>
 			<p>
-			チェックイン日時　　
+			Checkin Date　　
 			<%= date_field_tag :start_date, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
 			</p>
 			<p>
-			チェックアウト日時　
+			Checkout Date　
 			<%= date_field_tag :end_date, nil, :class => "form-control", :style => "width:60%;display:inline-block;" %>
 			</p>
 			<p>
-			１室あたりの人数　　
+			Number of people per room　　
 			<%= select_tag :people_num, options_for_select(["1", "2", "3", "4"]), :class => "form-control", :style => "width:75px;display:inline-block;" %>
 			<!--室数　-->
 			<% number_field_tag :room_num, nil, :class => "form-control", :style => "width:75px;display:inline-block;" %>
 			</p>
 			<p>
-			<%= submit_tag("検索する", :class => "btn btn-sm btn-success") %>
+			<%= submit_tag("Search", :class => "btn btn-sm btn-success") %>
 			</p>
 		<% end %>
 	</div>
@@ -65,7 +65,7 @@
 	</div>
 	<div class="col-sm-8 col-6" style="border:2px solid black;border-left:1px solid black">
 		<div style="margin-right:30%">
-		<h1 style="margin-top:20px;padding-left:10px;">最高の宿泊施設を<br>目指し</h1>
+		<h1 style="margin-top:20px;padding-left:10px;">Aiming for the best accommodation</h1>
 		<hr>
 		<p style="word-wrap: break-word;">
 		testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
@@ -76,24 +76,24 @@
 <!-- background-image:url('/assets/15895080_1288033254569028_5250487018125880334_n.jpg'); -->
 <br>
 <div style="background-color:rgba(220, 220, 220, .7);padding:20px;background-size: cover;opacity:.95">
-	<h1 class="text-center" style="margin:15px 0;">プラン一覧</h1>
+	<h1 class="text-center" style="margin:15px 0;">Plans</h1>
 	<hr style="border-color:red;width:100px;">
 	<% if user_signed_in? %>
-		<!--<a href="/plans/new" class="btn btn-sm btn-success text-center" style="margin-bottom:10px;">プラン作成</a>-->
+		<!--<a href="/en/plans/new" class="btn btn-sm btn-success text-center" style="margin-bottom:10px;">プラン作成</a>-->
 	<% end %>
 	<div class="row">
 		<div class="col-12">	
 			<div style="color:#eee;background-color:rgba(20, 20, 20, .95);border-radius:5px;height:auto;padding:30px;margin-bottom:35px;">
-				<h4 class="text-center">最上級の宿泊を提供します</h4>
+				<h4 class="text-center">Offer the finest accommodation</h4>
 				<hr style="border-color:#999">
 				<p>
-				富士山を一望できるロケーション・最新の施設設備・デザイン性富んだ装飾...お客様に最上級の宿泊を提供します。
+				Location overlooking Mt. Fuji, state-of-the-art facilities, and well-designed decoration ... We provide our guests with the finest accommodation.
 				<br>
 				</p>
 				<div class="row">
 					<% Tag.all.each do |tag| %>
 						<div class="col-sm-3 col-6">
-							<a href="/plans?tags=<%= tag.id %>">
+							<a href="/en/plans?tags=<%= tag.id %>">
 								<div style="border:1px solid rgba(140, 140, 140, .6); border-left:3px solid #4169e1;padding:5px;margin-bottom:10px;background-color:white;">
 									<small><%= tag.name %></small>
 								</div>
@@ -101,22 +101,22 @@
 						</div>
 					<% end %>
 				</div>
-				<a href="/plans" class="btn btn-primary btn-sm" style="margin-top:10px;">もっと見る</a>
+				<a href="/en/plans" class="btn btn-primary btn-sm" style="margin-top:10px;">Details</a>
 			</div>
 		</div>
 		<% @plans.each do |plan| %>
 			<div class="col-sm-6 col-12" >
 				<div class="card" style="padding:12px;margin-bottom:10px;">
 					<div style="width:100%;padding-left:0%;">
-						<a href="/plans/<%= plan.id %>">
+						<a href="/en/plans/<%= plan.id %>">
 							<img src="<%= plan.fixed_image_url %>" style="width:100%;height:300px">
 						</a>
 						<% tags = Tag.where(:id => eval("[#{plan.tag_ids}]") ) %>
 						<h5 class="text-center" style="margin-top:7px">
-							<a href="/plans/<%= plan.id %>"><%= plan.title %></a>
+							<a href="/en/plans/<%= plan.id %>"><%= plan.title %></a>
 							<small style="font-size:7px;margin-left:7px;">
 								<% tags.each do |t| %>
-									<a href="/plans?tags=<%= t.id %>"><span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
+									<a href="/en/plans?tags=<%= t.id %>"><span style="border:1px solid rgba(140, 140, 140, .4);border-left:3px solid #4169e1;padding:2px"><%= t.name %></span>
 									</a>
 								<% end %>
 							</small>
@@ -124,24 +124,24 @@
 						<div class="row">
 							<div class="col-6">
 
-								<small><%= plan.price %>円　<%= plan.people_num %>人部屋　<%= plan.room_num %>部屋数</small>
+								<small><%= plan.price %>Yen　<%= plan.people_num %>PersonsRoom　<%= plan.room_num %>部屋数</small>
 								<p><small><%= plan.explanation %></small></p>
 							</div>
 							<div class="col-6">
-								<a href="/plans/<%= plan.id %>" style="margin-top:11px" class="btn btn-info">カレンダーを見る</a>
+								<a href="/en/plans/<%= plan.id %>" style="margin-top:11px" class="btn btn-info">View Calendar</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		<% end %>
-		<a href="/plans" class="btn btn-primary" style="margin-left:15px;">もっと見る</a>
+		<a href="/en/plans" class="btn btn-primary" style="margin-left:15px;">Details</a>
 	</div>
 </div>
 <h1 class="text-center" style="margin:35px 0;">
-	最高の旅行の思い出を残しましょう。　<% if user_signed_in? %><a href="/articles/new" class="btn btn-sm btn-warning text-center" style="margin-bottom:10px;">オプション作成</a><% end %>
+	Leave the best memories of your trip.　<% if user_signed_in? %><a href="/en/articles/new" class="btn btn-sm btn-warning text-center" style="margin-bottom:10px;">Create Option</a><% end %>
 	<br>
-	<a href="/articles?is_option=0" class="btn btn-sm btn-primary" style="">詳細を見る</a>
+	<a href="/en/articles?is_option=0" class="btn btn-sm btn-primary" style="">Details</a>
 </h1>
 <p class="text-center" style="width:35%;margin:0 32%;font-size:9px;word-wrap: break-word;">
 	testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
@@ -163,18 +163,19 @@
 				<h5 style="margin-top:20px;border-left:5px solid #4169e1;padding:5px;border-bottom:1px solid #4169e1;width:70%;margin-left:15%;"><strong><%= option.title %></strong></h5>
 				<p style="width:70%;margin-left:15%;"><%= strip_tags(option.content)[0..30] %>...</p>
 				<div style="margin-left:15%;">
-				<a href="/articles/<%= option.id %>" class="btn btn-sm btn-info">詳細見る</a>
+				<a href="/en/articles/<%= option.id %>" class="btn btn-sm btn-info">Details</a>
 				</div>
 				</div>
 			</div>
 		<% end %>
 			<div class="col-sm-6">
 				<div style="padding:20px;margin-bottom:10px;">
-				<img src="/assets/common/common2.jpg" style="width:70%;margin-left:15%;">
-				<h5 style="margin-top:20px;border-left:5px solid #4169e1;padding:5px;border-bottom:1px solid #4169e1;width:70%;margin-left:15%;">もっと見る</h5>
-				<p style="width:70%;margin-left:15%;">私たち、もっと多くの活動を提供しています。
+				<img src="/en/assets/common/common2.jpg" style="width:70%;margin-left:15%;">
+				<h5 style="margin-top:20px;border-left:5px solid #4169e1;padding:5px;border-bottom:1px solid #4169e1;width:70%;margin-left:15%;">Details</h5>
+				<p style="width:70%;margin-left:15%;">
+				We offer more activities.
 				<div style="margin-left:15%;">
-				<a href="/articles/" class="btn btn-sm btn-info">もっと見る</a>
+				<a href="/en/articles/" class="btn btn-sm btn-info">Details</a>
 				</div>
 				</p>
 				</div>
@@ -187,9 +188,9 @@
 	<br>
 
 	<h1 class="text-center" style="margin-top:20px">
-		周辺情報一覧
+		List of surrounding information
 		<% if user_signed_in? %>
-			<a href="/articles/new" class="btn btn-sm btn-warning text-center">記事作成</a>
+			<a href="/en/articles/new" class="btn btn-sm btn-warning text-center">Create Articles</a>
 			<br>
 		<% end %>
 	</h1>
@@ -198,20 +199,20 @@
 		testetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetstetestetstetsttesttesttesttestetste
 		<br>
 		<div class="text-center">
-		<a href="/articles" class="btn btn-sm btn-primary" style="margin-left:15px;margin-bottom:15px">詳細を見る</a>
+		<a href="/en/articles" class="btn btn-sm btn-primary" style="margin-left:15px;margin-bottom:15px">View Details</a>
 		</div>
 	</p>
 	<div class="table table-responsive">
 		<table class="table table-bordered table-striped">
 		<% @articles.each do |article| %>
 			<td style="background-image:url('<%= article.fixed_image_url %>');background-size: cover;">
-				<a href="/articles/<%= article.id %>" style="color:#EEE;">
+				<a href="/en/articles/<%= article.id %>" style="color:#EEE;">
 					<div class="" style="margin-bottom:10px;">
 						<div style="background-color: rgba(70, 70, 70, .7);width:150px;height:77px;padding:5px">
 							<h5 style="margin-top:7px;"><%= article.title %></h5>
 						</div>
 						<br>
-						<a href="/articles/<%= article.id %>" class="btn btn-sm btn-secondary">詳細見る</a>
+						<a href="/en/articles/<%= article.id %>" class="btn btn-sm btn-secondary">View Details</a>
 					</div>
 				</a>
 			</td>
@@ -222,7 +223,7 @@
 	</div>
 </div>
 <div class="sns-section" style="margin:30px;">
-	<h1 class="text-center">SNS情報</h1>
+	<h1 class="text-center">SNS Information</h1>
 	<hr style="border-color:red;width:100px;">
 	<br>
 	<div class="row">
@@ -238,7 +239,7 @@
 	</div>
 </div>
 <div>
-	<h1 class="text-center">地図情報</h1>
+	<h1 class="text-center">Map Information</h1>
 	<hr style="border-color:red;width:100px;">
 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d812.2172388161176!2d138.79497912914908!3d35.48278599081342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601960cdf5f52ff9%3A0x8061fd196d04cdb6!2z5pel5pys44CB44CSNDAzLTAwMDUg5bGx5qKo55yM5a-M5aOr5ZCJ55Sw5biC5LiK5ZCJ55Sw77yS5LiB55uu77yX4oiS77yR77yT!5e0!3m2!1sja!2stw!4v1604319482967!5m2!1sja!2stw" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 </div>

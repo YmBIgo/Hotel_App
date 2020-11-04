@@ -1,0 +1,43 @@
+<div style="width::100%">
+	<div class="row" style="min-width::100%;margin:0 !important;display:block;">
+		<div class="d-none d-sm-block">
+			<div style="background-image:url('https://megufuji154.s3.us-east-2.amazonaws.com/photos/common/common3.jpg');background-repeat: no-repeat, repeat;background-size: cover;background-size:100% auto;min-height:250px;width:100%;">
+				<div style="padding:30px 30px 10px 30px;">
+					<div class="card" style="padding:20px;background-color:rgba(240, 240, 240, .45)">
+						<h4>〇 Reservation flow</h4>
+						<hr>
+						<div class="row">
+							<div class="col-4">
+								<div class="card" style="padding:10px;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">1 : Confirm reservation plan</h5>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card" style="padding:10px;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;color:rgba(30, 30, 30, .3)">2 : Enter reservation details</h5>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card" style="padding:10px;border-width:3px;border-color:#66CCFF;margin:5px 10px;">
+									<h5 style="margin-bottom:0px;">3 : Reservation complete</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="" style="padding:30px;">
+	<br>
+	<h1 class="text-center">The room reservation is complete!</h1>
+	<% # ハッシュ認証つき、URL つける %>
+	<hr>
+	<p>
+	For Details check <a href="<%= @reservation_url %>"><%= @reservation_url %></a> or Email.
+	<br>
+	We look forward to seeing you.
+	</p>
+</div>

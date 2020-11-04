@@ -1,0 +1,36 @@
+<div>
+	<div class="row" style="margin-top:20px">
+		<div class="col-3">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="/remainrooms" style="color:white">Top Page</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/reservations">Reservation Admin</a></li>
+				<li class="list-group-item list-group-item-action">Sales Admin</li>
+				<li class="list-group-item list-group-item-action"><a href="/plan/admin_index">Plan Admin</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/article/admin_index">Article Admin</a></li>
+			</ul>
+		</div>
+		<div class="col-9">
+			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;margin-bottom:"><strong>Plan Info</strong></h3>
+			<table class="table table-striped">
+				<thead>
+					<td>ID</td><td>Title</td><td>Price</td><td>人数</td><td>部屋数</td><td>説明</td><td>写真</td><td>HTML内容</td>
+				</thead>
+				<% @plans.each do |plan| %>
+					<tr>
+						<td><a href="/plans/<%= plan.id %>"><%= plan.id %></a></td>
+						<td><%= plan.title %></td>
+						<td><%= plan.price %></td>
+						<td><%= plan.people_num %></td>
+						<td><%= plan.room_num %></td>
+						<td><%= plan.explanation %></td>
+						<td><a href='<%= plan.photo_url %>'><%= plan.photo_url.split("/")[-1] %></a></td>
+						<td><%= plan.html_content.html_safe[0..100] %>...</td>
+						<!--<td><% plan %></td>-->
+					</tr>
+				<% end %>
+			</table>
+		</div>
+		<br>
+		<%= paginate @plans %>
+	</div>
+</div>

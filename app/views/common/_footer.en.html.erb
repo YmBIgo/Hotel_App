@@ -1,0 +1,44 @@
+<div style="background-color:rgba(30, 30, 30, .7);padding:30px 50px;color:rgba(240, 240, 240, .7)">
+	<div class="row">
+		<div class="col-sm-3 col-6">
+			<h4>TopPage</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/">TopPage</a>
+			</p>
+		</div>
+		<div class="col-sm-3 col-6">
+			<h4>Reservation</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/plans">Plans</a>
+				<br>
+				<% Plan.all.each do |pl| %>
+					<a style="color:rgba(240, 240, 240, .5)" href="/plans/<%= pl.id %>"><%= pl.title %></a><br>
+				<% end %>
+			</p>
+		</div>
+		<div class="col-sm-3 col-6">
+			<h4>Activities</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles?is_option=0">Activities</a>
+				<br>
+			<% Article.where(:article_type => 0).each do |ar| %>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles/<%= ar.id %>"><%= ar.title %></a><br>
+			<% end %>
+			</p>
+		</div>
+		<div class="col-sm-3 col-6">
+			<h4>Tourist spot</h4>
+			<hr style="border-color:rgba(230, 230, 230, .6)">
+			<p>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles?is_option=1">Tourist spot</a>
+				<br>
+			<% Article.where(:article_type => 1).each do |ar| %>
+				<a style="color:rgba(240, 240, 240, .5)" href="/articles/<%= ar.id %>"><%= ar.title %></a><br>
+			<% end %>
+			</p>
+		</div>
+	</div>
+</div>

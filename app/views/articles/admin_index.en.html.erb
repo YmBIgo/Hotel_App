@@ -1,0 +1,38 @@
+<div>
+	<div class="row" style="margin-top:20px">
+		<div class="col-3">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="/remainrooms" style="color:white">Top</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/reservations">Reservations Admin</a></li>
+				<li class="list-group-item list-group-item-action">Sales Admin</li>
+				<li class="list-group-item list-group-item-action"><a href="/plan/admin_index">Plan Admin</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/article/admin_index">Articles Admin</a></li>
+			</ul>
+		</div>
+		<div class="col-9">
+			<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;margin-bottom:"><strong>Articles Info</strong></h3>
+			<table class="table-striped">
+				<thead>
+					<td>ID</td>
+					<td>Title</td>
+					<td style="width:400px">Content</td>
+					<td>Author</td>
+					<td>Thumbnail URL</td>
+				</thead>
+				<tbody>
+					<% @articles.each do |article| %>
+						<tr>
+							<td><a href="/articles/<%= article.id %>"><%= article.id %></a></td>
+							<td><%= article.title %></td>
+							<td><%= article.content[0..100] %>...</td>
+							<td><%= article.author %></td>
+							<td><a href='<%= article.thumbnail %>'><%= article.thumbnail.split("/")[-1] %></a></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<br>
+			<%= paginate @articles %>
+		</div>
+	</div>
+</div>

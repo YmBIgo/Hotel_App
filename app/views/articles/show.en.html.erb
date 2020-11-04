@@ -1,0 +1,47 @@
+<div class="">
+	<div class="row">
+		<div class="col-sm-8">
+		<h3 style="border-left:7px solid #4689FF; border-bottom:2px solid #4689FF;padding:11px;"><%= @article.title %></h3>
+		<% if user_signed_in? %>
+			<a href="/en/articles/<%= @article.id %>/edit" class="btn btn-sm btn-success" style="margin-bottom:11px">Edit</a>
+			<br>
+		<% end %>
+		<small><%= @article.author %></small>
+		<br>
+		<img src="<%= @article.fixed_image_url %>" style="width:97%;margin:20px 0;">
+		<br>
+		<p>
+			<%= @article.content.html_safe %>
+		</p>
+		</div>
+		<div class="col-sm-4">
+			<div class="card" style="padding:20px;margin-top:20px;background-color:rgba(240, 240, 240, .2);box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .2);">
+				<img src="<%= @articles[0].fixed_image_url %>" style="width:100%;margin-top:7px;">
+				<h3 class="text-left" style="margin-top:15px"><strong><%= @articles[0].title %></strong></h3>
+				<hr>
+				<p class="text-center" style="margin-top:5px">
+					Normal Price <s>4000Yen</s> 
+					<br>
+					<span style="font-size:24px;color:#ff4500"><strong><u>If you reserve, 3000Yen</u></strong></span>
+					<br>
+					<div class="text-left">
+						<%= strip_tags(@articles[0].content[0..100]) %>
+					</div>
+					<a href="/en/plans" class="btn btn-info" style="margin-top:20px">Reserve Room</a>
+				</p>
+				<br>
+				<h5>Other discounts</h5>
+				<div class="row">
+				<% @articles[1..-1].each do |article| %>
+					<div class="col-4 text-center">
+						<img src="<%= article.fixed_image_url %>" style="width:80%;margin-left:10%;margin-top:7px;">
+						<br>
+						<small><a href="/en/articles/<%= article.id %>" target="_blank"><%= article.title %></a></small>
+					</div>
+				<% end %>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</div>
