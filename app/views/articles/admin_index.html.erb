@@ -23,7 +23,7 @@
 					<% @articles.each do |article| %>
 						<tr>
 							<td><a href="/articles/<%= article.id %>"><%= article.id %></a></td>
-							<td><%= article.title %></td>
+							<td><%= article.title %><br><a href="/articles/<%= article.id %>/edit" class="btn btn-sm btn-info" style="margin-bottom:10px">編集する</a></td>
 							<td><%= article.content[0..100] %>...</td>
 							<td><%= article.author %></td>
 							<td><a href='<%= article.thumbnail %>'><%= article.thumbnail.split("/")[-1] %></a></td>

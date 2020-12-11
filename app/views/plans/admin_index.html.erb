@@ -18,7 +18,7 @@
 				<% @plans.each do |plan| %>
 					<tr>
 						<td><a href="/plans/<%= plan.id %>"><%= plan.id %></a></td>
-						<td><%= plan.title %></td>
+						<td><%= plan.title %><br><a href="/plans/<%= plan.id %>/edit" class="btn btn-sm btn-info" style="margin-bottom:10px">編集する</a></td>
 						<td><%= plan.price %></td>
 						<td><%= plan.people_num %></td>
 						<td><%= plan.room_num %></td>

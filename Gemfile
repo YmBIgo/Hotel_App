@@ -30,6 +30,7 @@ gem 'rake', '12.0.0'
 gem 'minitest', '5.10.1'
 gem 'nokogiri', '1.7.0'
 gem 'autoprefixer-rails', '8.6.5'
+# gem 'public_suffix', '3.1.1'
 # gem 'rb-inotify', '0.9.9'
 
 # Use jquery as the JavaScript library
@@ -55,6 +56,12 @@ group :development, :test do
   gem 'byebug', '9.0.0'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '1.3.11'
+
+  gem 'rspec', '3.7.0'
+  gem 'rspec-rails', '3.7.0'
+  # gem 'cucumber', '3.0.0'
+  # gem 'database_cleaner'
+  # gem 'cucumber-rails', '1.5.0'
 end
 
 group :development do

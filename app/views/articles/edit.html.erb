@@ -1,21 +1,36 @@
-<div class="card" style="padding:20px;">
-	<h3>記事更新</h3>
-	<%= form_for @article do |f| %>
-		<p>タイトル
-		<%= f.text_field :title, :class => "form-control", :style => "width:70%" %>
-		</p>
-		<p>著者
-		<%= f.text_field :author, :class => "form-control", :style => "width:70%" %>
-		</p>
-		<p>記事分類
-		<%= f.select :article_type, [['オプション', 0], ['記事', 1]], {}, {:class => "form-control", :style => "width:70%"} %>
-		</p>
-		<p>ヘッダー写真
-		<%= f.text_field :thumbnail, :class => "form-control", :style => "width:70%" %>
-		</p>
-		<p>HTML内容
-		<%= f.text_area :content, :class => "form-control", :style => "width:70%;height:240px;" %>
-		</p>
-		<%= f.submit "作成する", :class => "btn btn-sm btn-primary" %>
-	<% end %>
+<div>
+	<div class="row" style="margin-top:20px">
+		<div class="col-3">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="/remainrooms" style="color:white">ホーム</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/reservations">プラン管理</a></li>
+				<li class="list-group-item list-group-item-action">売上管理</li>
+				<li class="list-group-item list-group-item-action"><a href="/plan/admin_index">プラン管理</a></li>
+				<li class="list-group-item list-group-item-action"><a href="/article/admin_index">記事管理</a></li>
+			</ul>
+		</div>
+		<div class="col-9">
+			<div class="card" style="padding:20px;">
+				<h3>記事更新</h3>
+				<%= form_for @article do |f| %>
+					<p>タイトル
+					<%= f.text_field :title, :class => "form-control", :style => "width:70%" %>
+					</p>
+					<p>著者
+					<%= f.text_field :author, :class => "form-control", :style => "width:70%" %>
+					</p>
+					<p>記事分類
+					<%= f.select :article_type, [['オプション', 0], ['記事', 1]], {}, {:class => "form-control", :style => "width:70%"} %>
+					</p>
+					<p>ヘッダー写真
+					<%= f.text_field :thumbnail, :class => "form-control", :style => "width:70%" %>
+					</p>
+					<p>HTML内容
+					<%= f.text_area :content, :class => "form-control", :style => "width:70%;height:240px;" %>
+					</p>
+					<%= f.submit "作成する", :class => "btn btn-sm btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>
