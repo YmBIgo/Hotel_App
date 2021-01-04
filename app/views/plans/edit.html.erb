@@ -16,6 +16,11 @@
 				<p>タイトル　
 				<%= f.text_field :title, :class => "form-control", :style => "width:60%" %>
 				</p>
+				<p>画像
+				<br>
+				<img src="<%= @plan.photo_url %>" style="width:140px;margin:10px 0;">
+				<%= f.text_field :photo_url, :class => "form-control", :style => "width:60%" %>
+				</p>
 				<p>部屋人数　
 				<%= f.number_field :people_num, :class => "form-control", :style => "width:60%" %>
 				</p>

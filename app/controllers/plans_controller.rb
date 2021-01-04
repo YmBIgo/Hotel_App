@@ -26,11 +26,15 @@ class PlansController < ApplicationController
 	# 以降は、Devise 制限
 	def new
 		@plan = Plan.new
+		@update_array = ["", "", "", "", "", ""]
 	end
 	def create
 		@plan = Plan.new(plan_params)
 		if @plan.valid?
 			@plan.save!
+			update_html(params, @plan)
+			update_tags(params, @plan)
+			redirect_to "/plans/#{@plan.id}/edit"
 		else
 			redirect_to "/plans/new"
 		end

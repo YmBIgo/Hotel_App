@@ -23,6 +23,8 @@ gem 'font-awesome-rails'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'rails-i18n'
+# gem "wysiwyg-rails" 使いやすそう
+gem 'ckeditor'
 
 ###### Default Gems
 gem 'ffi', '1.9.23'

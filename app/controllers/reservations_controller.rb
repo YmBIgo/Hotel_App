@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
 		@reservations = Reservation.all
 		# start_date / end_date / last_name / first_name / email
 		if params.keys.length > 3
-			@reservations = search_date(@reservations, params["start_date"], params["end_date"])
+			@reservations = search_date(@reservations, params["start_date"], params["end_date"], params["first_name"], params["last_name"], params["email"])
 			params.each do |k, v|
 				unless k == "utf8" || k == "controller" || k == "action" || k == "commit" || k == "start_date" || k == "end_date" || k == "locale"
 					@reservations = search_param(@reservations, k, v)
@@ -208,14 +208,17 @@ class ReservationsController < ApplicationController
 		end
 		return reservation
 	end
-	def search_date(reservation, start_date, end_date)
+	def search_date(reservation, start_date, end_date, first_name, last_name, email)
 		r 		= reservation
 		unless start_date == "" || end_date == ""
-			start_d = Date.parse(start_date)
-			end_d   = Date.parse(end_date)
+			start_d = start_date.is_a?(Date) ? start_date : Date.parse(start_date)
+			end_d   = end_date.is_a?(Date)   ? end_date   : Date.parse(end_date)
 			r = reservation.where(:start_date => start_d..(end_d-1) )
 			if r != nil
 				r = r.where(:end_date => (start_d+1)..end_d)
+				r = r.where("first_name LIKE ?", "%#{first_name}%") if first_name != "" && first_name != nil
+				r = r.where("last_name LIKE ?", "%#{last_name}%")   if last_name  != "" && last_name != nil
+				r = r.where("email LIKE ?", "%#{email}%" ) 		    if email      != "" && email != nil
 			end
 		end
 		return r

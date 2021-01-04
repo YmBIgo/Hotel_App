@@ -15,6 +15,12 @@
 				<thead>
 					<td>ID</td><td>タイトル</td><td>値段</td><td>人数</td><td>部屋数</td><td>説明</td><td>写真</td><td>HTML内容</td>
 				</thead>
+				<tbody>
+					<tr>
+						<td>0</td>
+						<td>新規作成</td>
+						<td><a href="/plans/new" class="btn btn-sm btn-warning">プラン作成する</td>
+					</tr>
 				<% @plans.each do |plan| %>
 					<tr>
 						<td><a href="/plans/<%= plan.id %>"><%= plan.id %></a></td>
@@ -28,6 +34,7 @@
 						<!--<td><% plan %></td>-->
 					</tr>
 				<% end %>
+				</tbody>
 			</table>
 		</div>
 		<br>
